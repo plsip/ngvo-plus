@@ -1,0 +1,5 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "git -C /c/Workspace/github.com/ngvo-plus": true
+    }
+}
