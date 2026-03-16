@@ -9,7 +9,7 @@ Krótka instrukcja dla konfiguracji:
 
 ## Pre-install
 
-1. W MO2 pracuj na osobnym profilu, np. `ngvo + precision`.
+1. W MO2 pracuj na osobnym profilu, np. `ngvo-plus`.
 2. Upewnij się, że na liście są już wymagania Precision:
    - `SKSE`
    - `Address Library for SKSE Plugins`

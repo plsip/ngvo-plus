@@ -1,5 +1,6 @@
 {
     "chat.tools.terminal.autoApprove": {
-        "git -C /c/Workspace/github.com/ngvo-plus": true
+        "git -C /c/Workspace/github.com/ngvo-plus": true,
+        "git remote": true
     }
 }
