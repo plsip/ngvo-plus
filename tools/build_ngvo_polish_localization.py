@@ -13,6 +13,18 @@ from dataclasses import dataclass
 from fnmatch import fnmatch
 from pathlib import Path
 
+import py7zr
+import rarfile
+
+_UNRAR_CANDIDATES = [
+    r"C:\Program Files\WinRAR\UnRAR.exe",
+    r"C:\Program Files (x86)\WinRAR\UnRAR.exe",
+]
+for _unrar in _UNRAR_CANDIDATES:
+    if Path(_unrar).exists():
+        rarfile.UNRAR_TOOL = _unrar
+        break
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -75,6 +87,11 @@ def parse_args() -> argparse.Namespace:
         default=str(REPO_ROOT / "Data"),
         metavar="DIR",
         help="Destination Data/ directory for copied mod files (default: <repo>/Data).",
+    )
+    parser.add_argument(
+        "--unpack-local",
+        action="store_true",
+        help="Unpack mods with localFile from ngvo-plus-pl-mods.json into tmp/NGVO - Polish Localization/<entry_id>/.",
     )
     return parser.parse_args()
 
@@ -228,9 +245,42 @@ def should_exclude(relative_path: str, patterns: list[str]) -> bool:
     return any(fnmatch(normalized, pattern) for pattern in patterns)
 
 
+_KNOWN_CONTENT_DIRS = frozenset([
+    "interface", "data", "textures", "meshes", "scripts", "sound",
+    "music", "skse", "translations", "strings", "seq", "lodsettings",
+    "grass", "shadersfx", "video", "source",
+])
+
+
 def detect_content_root(source_dir: Path) -> Path:
+    """Locate the actual mod content root inside source_dir.
+
+    Handles three layouts found in Nexus archives:
+    - flat:          source_dir/ contains mod files directly
+    - Data/ wrapper: source_dir/Data/ contains mod files
+    - name wrapper:  source_dir/<ModName>/ wraps one of the above
+
+    Recursion stops as soon as the single child folder is a known
+    game-content directory (interface/, textures/, scripts/, etc.)
+    to avoid stripping meaningful path prefixes.
+    """
     data_dir = source_dir / "Data"
-    return data_dir if data_dir.is_dir() else source_dir
+    if data_dir.is_dir():
+        return data_dir
+
+    children = list(source_dir.iterdir())
+    dirs = [p for p in children if p.is_dir()]
+    files = [p for p in children if p.is_file()]
+
+    # Strip exactly one wrapper folder, but only if it is not a standard
+    # game-content directory (which would indicate we are already inside
+    # the mod's file tree).
+    if len(dirs) == 1 and not files:
+        wrapper = dirs[0]
+        if wrapper.name.lower() not in _KNOWN_CONTENT_DIRS:
+            return detect_content_root(wrapper)
+
+    return source_dir
 
 
 def iter_files(root: Path, exclude_patterns: list[str]) -> list[Path]:
@@ -315,13 +365,11 @@ def extract_archive_safe(archive_path: Path, extract_dir: Path) -> None:
                     raise RuntimeError(f"Zip path traversal blocked: {member}")
                 zf.extract(member, extract_dir)
     elif suffix == ".7z":
-        result = subprocess.run(
-            ["7z", "x", str(archive_path), f"-o{extract_dir}", "-y"],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            raise RuntimeError(f"7z extraction failed: {result.stderr.strip()}")
+        with py7zr.SevenZipFile(archive_path, mode="r") as zf:
+            zf.extractall(path=extract_dir)
+    elif suffix == ".rar":
+        with rarfile.RarFile(archive_path, "r") as rf:
+            rf.extractall(path=extract_dir)
     else:
         shutil.unpack_archive(str(archive_path), str(extract_dir))
 
@@ -369,6 +417,130 @@ def fetch_and_extract_mods(mods_manifest: dict, mods_dir: Path, api_key: str) ->
     return results
 
 
+def _apply_rename_map(target_dir: Path, rename_map: dict[str, str], entry_id: str) -> None:
+    """Rename files inside target_dir according to rename_map {old_name: new_name}."""
+    for old_name, new_name in rename_map.items():
+        old_path = target_dir / old_name
+        new_path = target_dir / new_name
+        if old_path.exists():
+            new_path.parent.mkdir(parents=True, exist_ok=True)
+            old_path.rename(new_path)
+            print(f"  [RENAME] {old_name} → {new_name}")
+        else:
+            print(f"  [WARN]   {entry_id}: renameFiles: '{old_name}' nie znaleziono w {target_dir.name}")
+
+
+def unpack_local_mods(
+    mods_manifest: dict,
+    output_dir: Path,
+    exclude_patterns: list[str],
+    sources_dir: Path | None = None,
+) -> list[dict]:
+    """Extract archives referenced by localFile and merge their contents into output_dir.
+
+    Archives are first extracted to a staging dir (tmp/unpack-staging/<entry_id>/)
+    for caching.  Processed (flat, renamed) files are also written to
+    sources_dir/<entry_id>/ so that the normal build phase can pick them up via
+    modsSourcesRoot without re-extracting the archives.
+    """
+    staging_root = REPO_ROOT / "tmp" / "unpack-staging"
+    staging_root.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    if sources_dir is not None:
+        sources_dir.mkdir(parents=True, exist_ok=True)
+
+    overwrite_log: dict[str, list[str]] = {}
+    results: list[dict] = []
+
+    ordered_entries = sorted(mods_manifest.get("entries", []), key=lambda e: e.get("order", 0))
+
+    for entry in ordered_entries:
+        entry_id = entry["id"]
+        local_file = entry.get("downloadFile", {}).get("localFile")
+        if not local_file:
+            print(f"  [SKIP]   {entry_id}: brak localFile")
+            results.append({"id": entry_id, "status": "skipped", "reason": "no-local-file"})
+            continue
+
+        archive_path = (REPO_ROOT / local_file).resolve()
+        if not archive_path.exists():
+            print(f"  [MISS]   {entry_id}: nie znaleziono {archive_path}", file=sys.stderr)
+            results.append({"id": entry_id, "status": "missing", "archive": str(archive_path)})
+            continue
+
+        staging_dir = staging_root / entry_id
+        cached = staging_dir.exists() and any(staging_dir.iterdir())
+
+        if not cached:
+            try:
+                print(f"  [UNPACK] {archive_path.name} → staging")
+                extract_archive_safe(archive_path, staging_dir)
+            except Exception as exc:
+                print(f"  [ERROR]  {entry_id}: {exc}", file=sys.stderr)
+                results.append({"id": entry_id, "status": "error", "error": str(exc)})
+                continue
+        else:
+            print(f"  [CACHED] {entry_id}")
+
+        download_info = entry.get("downloadFile", {})
+        content_root_override = download_info.get("contentRoot")
+        rename_map: dict[str, str] = download_info.get("renameFiles", {})
+
+        source_path = staging_dir
+        if content_root_override:
+            override_path = staging_dir / content_root_override
+            if override_path.is_dir():
+                source_path = override_path
+            else:
+                print(f"  [WARN]   {entry_id}: contentRoot '{content_root_override}' nie istnieje, używam staging root")
+
+        source = SourceSpec(
+            id=entry_id,
+            label=entry.get("name", entry_id),
+            path=source_path,
+            required=entry.get("required", False),
+            order=entry.get("order", 0),
+            source_type="local-mod",
+        )
+
+        # ── Publish to sources_dir so the build phase can pick it up ────────
+        if sources_dir is not None:
+            mod_source_dir = sources_dir / entry_id
+            if not (mod_source_dir.exists() and any(mod_source_dir.iterdir())):
+                copy_tree(source, mod_source_dir, exclude_patterns, {})
+                _apply_rename_map(mod_source_dir, rename_map, entry_id)
+
+        # ── Merge into the immediate output directory ────────────────────────
+        copied, replaced = copy_tree(source, output_dir, exclude_patterns, overwrite_log)
+        _apply_rename_map(output_dir, rename_map, entry_id)
+
+        status = "cached" if cached else "unpacked"
+        print(f"  [MERGE]  {entry_id}: {copied} plików ({replaced} nadpisanych)")
+        results.append({
+            "id": entry_id,
+            "status": status,
+            "archive": str(archive_path),
+            "staging": str(staging_dir),
+            "copiedFiles": copied,
+            "replacedFiles": replaced,
+        })
+
+    return results
+
+
+def rename_polish_to_english(output_dir: Path) -> list[dict]:
+    """Rename every file containing '_polish' in its name to '_english'."""
+    renamed: list[dict] = []
+    for path in sorted(output_dir.rglob("*")):
+        if path.is_file() and "_polish" in path.name.lower():
+            new_name = path.name.replace("_polish", "_english").replace("_Polish", "_english")
+            new_path = path.with_name(new_name)
+            path.rename(new_path)
+            renamed.append({"from": path.name, "to": new_name})
+            print(f"  [RENAME] {path.name} → {new_name}")
+    return renamed
+
+
 def copy_mods_to_data(
     mods_manifest: dict,
     mods_dir: Path,
@@ -403,6 +575,20 @@ def copy_mods_to_data(
     return results
 
 
+def pack_mod_for_mo2(mod_dir: Path) -> Path:
+    """Create a MO2-installable zip archive from mod_dir contents.
+
+    The archive has a flat layout (files at root, no top-level wrapper folder)
+    which MO2 can install directly.
+    """
+    archive_path = mod_dir.parent / f"{mod_dir.name}.zip"
+    with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for file_path in sorted(mod_dir.rglob("*")):
+            if file_path.is_file():
+                zf.write(file_path, file_path.relative_to(mod_dir))
+    return archive_path
+
+
 def build_report_path(output_dir: Path) -> Path:
     return output_dir.parent / "build-report.json"
 
@@ -414,6 +600,35 @@ def main() -> int:
 
     output_dir = get_build_root(config, config_dir)
     exclude_patterns = config.get("excludePatterns", [])
+
+    # ── Unpack-local phase ───────────────────────────────────────────────────
+    if args.unpack_local:
+        pl_mods_path = resolve_path(config_dir, config["modsManifestPath"])
+        pl_mods_manifest = load_json(pl_mods_path)
+        unpack_output_dir = REPO_ROOT / "tmp" / "NGVO - Polish Localization"
+        sources_dir = resolve_path(config_dir, config["modsSourcesRoot"])
+        print(f"Rozpakowywanie lokalnych archiwów → {unpack_output_dir}")
+        unpack_results = unpack_local_mods(pl_mods_manifest, unpack_output_dir, exclude_patterns, sources_dir)
+        unpacked = sum(1 for r in unpack_results if r["status"] == "unpacked")
+        cached = sum(1 for r in unpack_results if r["status"] == "cached")
+        skipped = sum(1 for r in unpack_results if r["status"] == "skipped")
+        missing = sum(1 for r in unpack_results if r["status"] == "missing")
+        errors = sum(1 for r in unpack_results if r["status"] == "error")
+        print(
+            f"Gotowe: {unpacked} rozpakowane, {cached} w cache, "
+            f"{skipped} pominięte (brak localFile), {missing} nie znalezione, {errors} błędy"
+        )
+        report_path = REPO_ROOT / "tmp" / "unpack-local-report.json"
+        with report_path.open("w", encoding="utf-8") as handle:
+            json.dump({"unpackLocal": unpack_results}, handle, indent=2, ensure_ascii=False)
+            handle.write("\n")
+        print(f"Raport zapisany: {report_path}")
+
+        print(f"\nPrzełączanie nazw _polish → _english w {unpack_output_dir}")
+        renamed = rename_polish_to_english(unpack_output_dir)
+        print(f"Przemianowano: {len(renamed)} plików")
+
+        return 1 if errors or missing else 0
 
     # ── Fetch phase ──────────────────────────────────────────────────────────
     if args.fetch:
@@ -563,6 +778,11 @@ def main() -> int:
     print(f"Sources used: {len(source_summaries)}")
     print(f"Required sources missing: {len(missing_required)}")
     print(f"Optional sources missing: {len(missing_optional)}")
+
+    print(f"\nPakowanie moda dla MO2 ...")
+    archive_path = pack_mod_for_mo2(output_dir)
+    archive_size_mb = archive_path.stat().st_size / 1_048_576
+    print(f"Archiwum: {archive_path} ({archive_size_mb:.2f} MB)")
     return 0
 
 

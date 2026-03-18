@@ -30,6 +30,39 @@
   ],
   "entries": [
     {
+      "order": 5,
+      "id": "unofficial-skyrim-special-edition-patch-pl",
+      "name": "Unofficial Skyrim Special Edition Patch PL (spolszczenie)",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "critical",
+      "ngvoModName": "Unofficial Skyrim Special Edition Patch",
+      "originalModNexusModId": 266,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/266",
+      "nexusModId": 1456,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/1456",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Unofficial Skyrim Special Edition Patch PL",
+        "version": "4.3.7",
+        "localFile": "mods/Unofficial Skyrim Special Edition Patch PL-1456-4-3-7-1772203354.7z"
+      },
+      "activeIndicators": {
+        "mod": "Unofficial Skyrim Special Edition Patch",
+        "plugin": "Unofficial Skyrim Special Edition Patch.esp"
+      },
+      "why": "USSEP poprawia ogromna liczbe questow, dialogow, nazw przedmiotow i drobnych bledow tekstowych widocznych przez cala gre. Jesli jego warstwa tekstowa zostaje po angielsku, niespojnosc przebija sie praktycznie wszedzie.",
+      "textSurface": [
+        "quests",
+        "dialog subtitles",
+        "item names",
+        "world text",
+        "bugfix-adjusted records"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym Unofficial Skyrim Special Edition Patch i upewnij sie, ze wersja spolszczenia 4.3.7 odpowiada wersji bazowego USSEP w NGVO",
+      "status": "recommended-first"
+    },
+    {
       "order": 10,
       "id": "skyui-polish-translation",
       "name": "SkyUI - Polish Translation",
@@ -44,7 +77,8 @@
       "downloadFile": {
         "nexusFileId": 447044,
         "fileName": "SkyUI - Polish Translation",
-        "version": "5.2SE"
+        "version": "5.2SE",
+        "localFile": "mods/SkyUI - Polish Translation-105819-5-2SE-1701243670.7z"
       },
       "activeIndicators": {
         "mod": "SkyUI",
@@ -75,7 +109,12 @@
       "downloadFile": {
         "nexusFileId": 686450,
         "fileName": "RaceMenu - Polish Translation",
-        "version": "0.4.19.16"
+        "version": "0.4.19.16",
+        "localFile": "mods/RaceMenu - Polish Translation-164225-0-4-19-16-1762867818.zip",
+        "renameFiles": {
+          "RaceMenuPL.esp": "RaceMenu.esp",
+          "RaceMenuPluginPL.esp": "RaceMenuPlugin.esp"
+        }
       },
       "activeIndicators": {
         "mod": "RaceMenu",
@@ -109,7 +148,8 @@
       "downloadFile": {
         "nexusFileId": 336504,
         "fileName": "moreHUD SE - Polish Translation",
-        "version": "5.2.2.0"
+        "version": "5.2.2.0",
+        "localFile": "mods/moreHUD SE - Polish Translation-41649-5-2-2-0-1669925741.7z"
       },
       "activeIndicators": {
         "mod": "moreHUD SE",
@@ -141,7 +181,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Whose Quest Is It Anyway NG - Polish Translation",
-        "version": "1.5"
+        "version": "1.5",
+        "localFile": "mods/Whose Quest Is It Anyway NG - Polish Translation-88470-1-5-1680623212.rar"
       },
       "activeIndicators": {
         "mod": "Whose Quest is it Anyway NG"
@@ -170,7 +211,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "UIExtensions Spolszcenie",
-        "version": "1.2.0"
+        "version": "1.2.0",
+        "localFile": "mods/UIExtensions Spolszczenie-81099-1-2-0-1671616818.rar"
       },
       "activeIndicators": {
         "mod": "UIExtensions"
@@ -199,7 +241,8 @@
       "downloadFile": {
         "nexusFileId": 502726,
         "fileName": "TrueHUD - HUD Additions Spolszczenie",
-        "version": "1.1.9"
+        "version": "1.1.9",
+        "localFile": "mods/TrueHUD - HUD Additions Spolszczenie-87893-1-1-9-1716115584.rar"
       },
       "activeIndicators": {
         "mod": "TrueHUD - HUD Additions"
@@ -229,7 +272,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Modern Wait Menu - Polish Translation",
-        "version": "1.00"
+        "version": "1.00",
+        "localFile": "mods/Modern Wait Menu - Polish Translation-135529-1-00-1737146810.rar"
       },
       "activeIndicators": {
         "mod": "Modern Wait Menu"
@@ -257,7 +301,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
-        "version": "1.72"
+        "version": "1.72",
+        "localFile": "mods/Skyrim Paper Map by Caro Tuts for FWMF PL-132722-1-72-1730292991.7z"
       },
       "activeIndicators": {
         "mod": "Skyrim Paper Map by Caro Tuts for FWMF"
@@ -285,7 +330,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Forgotten vale paper Map FWMF - PL",
-        "version": "1.8"
+        "version": "1.8",
+        "localFile": "mods/Forgotten Vale Paper Map for FWMF - PL-169848-1-8-1768511820.7z"
       },
       "activeIndicators": {
         "mod": "Forgotten Vale Paper Map for FWMF"
@@ -313,7 +359,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Blackreach Paper Map for FWMF - PL",
-        "version": "1.8"
+        "version": "1.8",
+        "localFile": "mods/Blackreach Paper Map for FWMF - PL-132715-1-8-1730285098.7z"
       },
       "activeIndicators": {
         "mod": "Blackreach Paper Map for FWMF"
@@ -341,7 +388,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Soul Cairn Paper Map for FWMF - PL",
-        "version": "1.9"
+        "version": "1.9",
+        "localFile": "mods/Soul Cairn Paper Map - PL-132649-1-9-1730209420.7z"
       },
       "activeIndicators": {
         "mod": "Soul Cairn Paper Map for FWMF"
@@ -369,7 +417,8 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Book Covers Skyrim",
-        "version": "4.2"
+        "version": "4.2",
+        "localFile": "mods/Book Covers Skyrim SE - Original PL-12958-1-0.rar"
       },
       "activeIndicators": {
         "mod": "Book Covers Skyrim"
@@ -381,6 +430,36 @@
         "labels"
       ],
       "installRecommendation": "zainstaluj Book Covers Skyrim 4.2, a nastepnie doinstaluj dedykowany mod tlumaczenia z osobnej strony Nexus Mods",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 371,
+      "id": "book-covers-skyrim-pl-patch",
+      "name": "Book Covers Skyrim SE - Original PL - PATCH",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "medium",
+      "ngvoModName": "Book Covers Skyrim",
+      "originalModNexusModId": 901,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/901",
+      "nexusModId": 12958,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12958",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Book Covers Skyrim SE - Original PL - PATCH",
+        "version": null,
+        "localFile": "mods/Book Covers Skyrim SE - Original PL - PATCH-12958-.rar"
+      },
+      "activeIndicators": {
+        "mod": "Book Covers Skyrim"
+      },
+      "why": "Patch do polskiego tlumaczenia Book Covers Skyrim SE - Original PL. Instaluj po glownym spolszczeniu.",
+      "textSurface": [
+        "book UI",
+        "inventory",
+        "labels"
+      ],
+      "installRecommendation": "zainstaluj po Book Covers Skyrim i spolszczeniu Book Covers Skyrim SE - Original PL",
       "status": "confirmed-translation"
     },
     {
@@ -398,7 +477,9 @@
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "The Elder Scrolls Legends - Loading Screens",
-        "version": "2.1.1"
+        "version": "2.1.1",
+        "localFile": "mods/TESL - Loading Screens - Polish Translation-39014-2-1-1-1686236601.7z",
+        "contentRoot": "main"
       },
       "activeIndicators": {
         "mod": "The Elder Scrolls Legends - Loading Screens"
