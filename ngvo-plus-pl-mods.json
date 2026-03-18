@@ -1,0 +1,416 @@
+{
+  "manifestVersion": 1,
+  "id": "ngvo-polish-mods",
+  "name": "NGVO Polish Mods",
+  "description": "Lista priorytetowych polskich tlumaczen do aktywnych modow NGVO. Kazdy wpis wskazuje konkretny mod z polskim tlumaczeniem na Nexus Mods oraz konkretne archiwum do pobrania. Audio jest celowo pominiete.",
+  "scope": "mods-only",
+  "filters": {
+    "textOnly": true,
+    "excludeAudio": true,
+    "profile": "ngvo-plus-pl"
+  },
+  "selectionPolicy": {
+    "kind": "top-priority",
+    "limit": 5,
+    "criteria": [
+      "widocznosc tekstu w codziennej grze",
+      "zakres zmian w UI lub MCM",
+      "czestotliwosc kontaktu gracza z modem",
+      "aktywny mod w aktualnym profilu NGVO"
+    ]
+  },
+  "notes": [
+    "Kazdy wpis wskazuje gotowe polskie tlumaczenie do moda aktywnego w NGVO.",
+    "Pole nexusUrl prowadzi do strony spolszczenia na Nexus Mods.",
+    "Pole downloadFile zawiera minimalny zestaw danych dla downloadera: nexusFileId oraz fallback fileName i version.",
+    "Wymaganie dla downloadera: pobieraj przez API Nexus Mods na podstawie nexusModId i nexusFileId, bez uzywania widgetow strony.",
+    "Pole originalModNexusUrl zostawiono tylko jako referencje do oryginalnego moda bazowego.",
+    "Manifest dotyczy tylko tekstu i interfejsu. Modow audio i voice replacerow nie obejmuje.",
+    "Lista zostala ograniczona do modow, dla ktorych znalazlem potwierdzone polskie tlumaczenia na Nexus Mods."
+  ],
+  "entries": [
+    {
+      "order": 10,
+      "id": "skyui-polish-translation",
+      "name": "SkyUI - Polish Translation",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "critical",
+      "ngvoModName": "SkyUI",
+      "originalModNexusModId": 12604,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12604",
+      "nexusModId": 105819,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/105819",
+      "downloadFile": {
+        "nexusFileId": 447044,
+        "fileName": "SkyUI - Polish Translation",
+        "version": "5.2SE"
+      },
+      "activeIndicators": {
+        "mod": "SkyUI",
+        "plugin": "SkyUI_SE.esp"
+      },
+      "why": "To podstawowa warstwa interfejsu dla duzej czesci pozostalych modow UI i MCM. Bez tego spolszczenia angielskie elementy menu, kategorii i opisow beda stale przebijaly sie przez reszte UI.",
+      "textSurface": [
+        "inventory",
+        "favorites",
+        "item cards",
+        "mod configuration menu"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym SkyUI i nadpisz pliki zgodnie z instrukcja spolszczenia",
+      "status": "recommended-first"
+    },
+    {
+      "order": 20,
+      "id": "racemenu-polish-translation",
+      "name": "RaceMenu - Polish Translation (0.4.19.16)",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "high",
+      "ngvoModName": "RaceMenu",
+      "originalModNexusModId": 19080,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/19080",
+      "nexusModId": 164225,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/164225",
+      "downloadFile": {
+        "nexusFileId": 686450,
+        "fileName": "RaceMenu - Polish Translation",
+        "version": "0.4.19.16"
+      },
+      "activeIndicators": {
+        "mod": "RaceMenu",
+        "plugins": [
+          "RaceMenu.esp",
+          "RaceMenuPlugin.esp"
+        ]
+      },
+      "why": "RaceMenu wprowadza duza liczbe nazw suwakow, kategorii i opcji. Bez spolszczenia kreator postaci i powiazane ekrany zostaja w mocno angielskiej formie.",
+      "textSurface": [
+        "character creation",
+        "sliders",
+        "preset management",
+        "category labels"
+      ],
+      "installRecommendation": "zainstaluj tylko jesli wersja RaceMenu w NGVO zgadza sie z tlumaczeniem 0.4.19.16",
+      "status": "recommended-first"
+    },
+    {
+      "order": 30,
+      "id": "morehud-se-polish-translation",
+      "name": "moreHUD SE - Polish Translation",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "critical",
+      "ngvoModName": "moreHUD SE",
+      "originalModNexusModId": 12688,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12688",
+      "nexusModId": 41649,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/41649",
+      "downloadFile": {
+        "nexusFileId": 336504,
+        "fileName": "moreHUD SE - Polish Translation",
+        "version": "5.2.2.0"
+      },
+      "activeIndicators": {
+        "mod": "moreHUD SE",
+        "plugin": "AHZmoreHUD.esl"
+      },
+      "why": "Mod dodaje stale widoczne informacje tekstowe przy celowaniu w przedmioty, przeciwnikow, ksiazki i ingredienty. To jeden z najbardziej odczuwalnych angielskich elementow podczas zwyklej eksploracji.",
+      "textSurface": [
+        "target HUD",
+        "enemy info",
+        "book state",
+        "ingredient effects",
+        "MCM"
+      ],
+      "installRecommendation": "zainstaluj polskie tlumaczenie zgodne z zainstalowanym moreHUD SE 5.2.2.0",
+      "status": "recommended-first"
+    },
+    {
+      "order": 70,
+      "id": "whose-quest-is-it-anyway-ng-polish-translation",
+      "name": "Whose Quest Is It Anyway NG - Polish Translation",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "high",
+      "ngvoModName": "Whose Quest is it Anyway NG",
+      "originalModNexusModId": 77360,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/77360",
+      "nexusModId": 88470,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/88470",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Whose Quest Is It Anyway NG - Polish Translation",
+        "version": "1.5"
+      },
+      "activeIndicators": {
+        "mod": "Whose Quest is it Anyway NG"
+      },
+      "why": "To maly mod, ale jego caly sens opiera sie na czytelnym komunikacie tekstowym o przypisaniu przedmiotow do zadan. Jesli zostaje po angielsku, traci duza czesc wartosci dla polskiej gry.",
+      "textSurface": [
+        "quest item info",
+        "tooltip text",
+        "inventory context"
+      ],
+      "installRecommendation": "zainstaluj po modzie bazowym, aby nadpisac jego teksty",
+      "status": "recommended-first"
+    },
+    {
+      "order": 60,
+      "id": "uiextensions-polish-translation",
+      "name": "UIExtensions Spolszcenie",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "medium",
+      "ngvoModName": "UIExtensions",
+      "originalModNexusModId": 17561,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/17561",
+      "nexusModId": 81099,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/81099",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "UIExtensions Spolszcenie",
+        "version": "1.2.0"
+      },
+      "activeIndicators": {
+        "mod": "UIExtensions"
+      },
+      "why": "UIExtensions bywa zaleznoscia dla innych modow i doklada wlasne menu oraz prompty, wiec potwierdzone spolszczenie usuwa kolejna widoczna warstwe angielskiego UI z codziennej gry.",
+      "textSurface": [
+        "menus",
+        "dialog UI",
+        "scripted prompts"
+      ],
+      "installRecommendation": "zainstaluj oryginalny UIExtensions, a potem nadpisz go tym spolszczeniem; przed instalacja upewnij sie, ze wersja 1.2.0 pasuje do wersji moda w NGVO",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 130,
+      "id": "truehud-polish-translation",
+      "name": "TrueHUD - HUD Additions Spolszczenie",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "high",
+      "ngvoModName": "TrueHUD - HUD Additions",
+      "originalModNexusModId": 62775,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/62775",
+      "nexusModId": 87893,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/87893",
+      "downloadFile": {
+        "nexusFileId": 502726,
+        "fileName": "TrueHUD - HUD Additions Spolszczenie",
+        "version": "1.1.9"
+      },
+      "activeIndicators": {
+        "mod": "TrueHUD - HUD Additions"
+      },
+      "why": "TrueHUD wystawia stale widoczne elementy HUD i ustawienia, wiec spolszczenie tych warstw ma duzy sens praktyczny. Osobne polskie tlumaczenie jest dostepne na Nexus Mods.",
+      "textSurface": [
+        "HUD",
+        "boss bars",
+        "widgets",
+        "MCM"
+      ],
+      "installRecommendation": "zainstaluj oryginalny TrueHUD, a potem nadpisz go spolszczeniem TrueHUD - HUD Additions Spolszczenie 1.1.9",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 150,
+      "id": "modern-wait-menu-polish-translation",
+      "name": "Modern Wait Menu - Polish Translation",
+      "type": "translation-mod",
+      "required": true,
+      "priority": "medium",
+      "ngvoModName": "Modern Wait Menu",
+      "originalModNexusModId": 117661,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/117661",
+      "nexusModId": 135529,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/135529",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Modern Wait Menu - Polish Translation",
+        "version": "1.00"
+      },
+      "activeIndicators": {
+        "mod": "Modern Wait Menu"
+      },
+      "why": "Ekran czekania pojawia sie regularnie podczas gry, a ten mod podmienia jego warstwe tekstowa. To nie jest najwieksze spolszczenie na liscie, ale jest latwe do domkniecia i poprawia spojnosc UI.",
+      "textSurface": [
+        "wait menu",
+        "time selection UI"
+      ],
+      "installRecommendation": "zainstaluj po Modern Wait Menu, aby nadpisac teksty interfejsu",
+      "status": "recommended-first"
+    },
+    {
+      "order": 270,
+        "id": "skyrim-paper-map-by-caro-tuts-polish-translation",
+        "name": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
+        "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Skyrim Paper Map by Caro Tuts for FWMF",
+      "originalModNexusModId": 62705,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/62705",
+        "nexusModId": 132722,
+        "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/132722",
+        "downloadFile": {
+          "nexusFileId": null,
+          "fileName": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
+          "version": "1.72"
+        },
+      "activeIndicators": {
+        "mod": "Skyrim Paper Map by Caro Tuts for FWMF"
+      },
+        "why": "Dla tej mapy jest potwierdzone osobne polskie tlumaczenie na Nexus Mods, obejmujace etykiety miast i teksture mapy.",
+      "textSurface": [
+        "map labels",
+        "configuration"
+      ],
+        "installRecommendation": "zainstaluj oryginalna mape, a nastepnie nadpisz ja tlumaczeniem Skyrim Paper Map by Caro Tuts for FWMF - PL 1.72",
+        "status": "confirmed-translation"
+    },
+    {
+      "order": 290,
+      "id": "forgotten-vale-paper-map-polish-translation",
+      "name": "Forgotten vale paper Map FWMF - PL",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Forgotten Vale Paper Map for FWMF",
+      "originalModNexusModId": 54628,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/54628",
+      "nexusModId": 169848,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/169848",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Forgotten vale paper Map FWMF - PL",
+        "version": "1.8"
+      },
+      "activeIndicators": {
+        "mod": "Forgotten Vale Paper Map for FWMF"
+      },
+      "why": "Dla Zapomnianej Doliny jest dostepna osobna polska tekstura i przetlumaczone nazwy mapy na Nexus Mods.",
+      "textSurface": [
+        "map labels",
+        "configuration"
+      ],
+      "installRecommendation": "zainstaluj oryginalna mape, a potem nadpisz ja tlumaczeniem Forgotten vale paper Map FWMF - PL 1.8",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 310,
+      "id": "blackreach-paper-map-polish-translation",
+      "name": "Blackreach Paper Map for FWMF - PL",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Blackreach Paper Map for FWMF",
+      "originalModNexusModId": 53878,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/53878",
+      "nexusModId": 132715,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/132715",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Blackreach Paper Map for FWMF - PL",
+        "version": "1.8"
+      },
+      "activeIndicators": {
+        "mod": "Blackreach Paper Map for FWMF"
+      },
+      "why": "Istnieje potwierdzone polskie tlumaczenie tej mapy na Nexus Mods, obejmujace plik .esp i teksty mapy Czarnej Przystani.",
+      "textSurface": [
+        "map labels",
+        "configuration"
+      ],
+      "installRecommendation": "zainstaluj oryginalna mape, a nastepnie nadpisz ja tlumaczeniem Blackreach Paper Map for FWMF - PL 1.8",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 340,
+      "id": "soul-cairn-paper-map-polish-translation",
+      "name": "Soul Cairn Paper Map for FWMF - PL",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Soul Cairn Paper Map for FWMF",
+      "originalModNexusModId": 55387,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/55387",
+      "nexusModId": 132649,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/132649",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Soul Cairn Paper Map for FWMF - PL",
+        "version": "1.9"
+      },
+      "activeIndicators": {
+        "mod": "Soul Cairn Paper Map for FWMF"
+      },
+      "why": "Dla Kopca Dusz jest dostepne osobne polskie tlumaczenie mapy na Nexus Mods.",
+      "textSurface": [
+        "map labels",
+        "configuration"
+      ],
+      "installRecommendation": "zainstaluj oryginalna mape, a potem nadpisz ja tlumaczeniem Soul Cairn Paper Map for FWMF - PL 1.9",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 370,
+      "id": "book-covers-skyrim-polish-translation",
+      "name": "Book Covers Skyrim - Polish Language Pack",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "medium",
+      "ngvoModName": "Book Covers Skyrim",
+      "originalModNexusModId": 901,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/901",
+        "nexusModId": 12958,
+        "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12958",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Book Covers Skyrim",
+        "version": "4.2"
+      },
+      "activeIndicators": {
+        "mod": "Book Covers Skyrim"
+      },
+      "why": "Mod zmienia prezentacje ksiazek i moze zawierac widoczne nazwy lub teksty interfejsowe. Osobny mod tlumaczenia dla Book Covers Skyrim jest dostepny na Nexus Mods.",
+      "textSurface": [
+        "book UI",
+        "inventory",
+        "labels"
+      ],
+      "installRecommendation": "zainstaluj Book Covers Skyrim 4.2, a nastepnie doinstaluj dedykowany mod tlumaczenia z osobnej strony Nexus Mods",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 420,
+      "id": "tes-legends-loading-screens-polish-translation",
+      "name": "The Elder Scrolls Legends - Loading Screens - Polish Translation",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "medium",
+      "ngvoModName": "The Elder Scrolls Legends - Loading Screens",
+      "originalModNexusModId": 37929,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/37929",
+      "nexusModId": 39014,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/39014",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "The Elder Scrolls Legends - Loading Screens",
+        "version": "2.1.1"
+      },
+      "activeIndicators": {
+        "mod": "The Elder Scrolls Legends - Loading Screens"
+      },
+      "why": "Loading screeny czesto opieraja sie na czytelnym tekscie i podpisach. Dla tego moda istnieje osobny polski mod tlumaczenia na Nexus Mods.",
+      "textSurface": [
+        "loading screens",
+        "captions",
+        "tips"
+      ],
+      "installRecommendation": "zainstaluj wersje zgodna z NGVO, a nastepnie doinstaluj osobny mod tlumaczenia z Nexus Mods: The Elder Scrolls Legends - Loading Screens - Polish Translation",
+      "status": "confirmed-translation"
+    }
+  ]
+}
