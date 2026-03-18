@@ -3,8 +3,6 @@
   "id": "ngvo-polish-bootstrap",
   "name": "NGVO Polish Bootstrap Copy Manifest",
   "description": "Manifest wejsciowy dla narzedzia, ktore kopiuje gotowe do przeniesienia pliki lokalizacji z polskiej instalacji Skyrim SE do NGVO Stock Game bez edycji modow.",
-  "sourceRoot": "C:\\Games\\Steam Games\\steamapps\\common\\Skyrim Special Edition",
-  "targetRoot": "C:\\NGVO\\Stock Game",
   "execution": {
     "ordering": "ascending-order",
     "orderField": "order",
@@ -19,26 +17,23 @@
   "notes": [
     "Manifest jest jedynym plikiem konfiguracyjnym dla narzedzia.",
     "Kazda operacja ma jawne pole order i narzedzie powinno wykonywac wpisy rosnaco wedlug tego pola.",
-    "Manifest obejmuje jawnie wypisane pliki dla bazowej gry, DLC, ResourcePack i calego Creation Club.",
+    "Manifest korzysta z repozytoryjnego katalogu Data jako zrodla dla plikow interfejsu i stringow.",
+    "Pliki stringow w tym repo maja suffix _polish, a wynikowy mod mapuje je na warianty _english dla angielskiego runtime NGVO.",
     "Nie obejmuje ekstrakcji BSA ani tlumaczenia pluginow modow.",
-    "Polska instalacja Steam w obecnym stanie wystawia bezposrednio co najmniej Data\\Skyrim - Voices_pl0.bsa.",
-    "Pliki stringow i interfejsu sa rozpisane explicite wedlug standardowego nazewnictwa Bethesda i oznaczone jako copy-if-exists, bo nie byly widoczne jako osobne loose files w sprawdzonej instalacji."
+    "Archiwum glosow jest opcjonalne i nie blokuje buildu, jesli nie znajduje sie w repozytoryjnym katalogu Data."
   ],
   "operations": [
     {
       "id": "vanilla-voices-pl",
       "order": 10,
       "name": "Vanilla Polish voice archive",
-      "type": "copy",
+      "type": "copy-if-exists",
       "enabled": true,
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
       "src": "Data\\Skyrim - Voices_pl0.bsa",
-      "dst": "Data\\Skyrim - Voices_pl0.bsa",
-      "category": "base-game-audio",
-      "why": "Dodaje polskie archiwum glosow bazowej gry do Stock Game bez nadpisywania angielskiego Voices_en0.bsa.",
-      "status": "verified-present-in-source"
+      "dst": "Data\\Skyrim - Voices_en0.bsa"
     },
     {
       "id": "translate-polish-txt",
@@ -49,11 +44,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Interface\\Translate_POLISH.txt",
-      "dst": "Data\\Interface\\Translate_POLISH.txt",
-      "category": "base-game-ui",
-      "why": "Kopiuje standardowy plik tlumaczen interfejsu dla jezyka POLISH, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Interface\\Translate_Polish.txt",
+      "dst": "Data\\Interface\\Translate_English.txt"
     },
     {
       "id": "_resourcepack-pl-strings",
@@ -64,11 +56,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\_ResourcePack_pl.STRINGS",
-      "dst": "Data\\Strings\\_ResourcePack_pl.STRINGS",
-      "category": "resource-pack-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu _ResourcePack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\_ResourcePack_polish.STRINGS",
+      "dst": "Data\\Strings\\_ResourcePack_english.STRINGS"
     },
     {
       "id": "_resourcepack-pl-dlstrings",
@@ -79,11 +68,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\_ResourcePack_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\_ResourcePack_pl.DLSTRINGS",
-      "category": "resource-pack-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu _ResourcePack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\_ResourcePack_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\_ResourcePack_english.DLSTRINGS"
     },
     {
       "id": "_resourcepack-pl-ilstrings",
@@ -94,11 +80,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\_ResourcePack_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\_ResourcePack_pl.ILSTRINGS",
-      "category": "resource-pack-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu _ResourcePack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\_ResourcePack_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\_ResourcePack_english.ILSTRINGS"
     },
     {
       "id": "ccafdsse001-dwesanctuary-pl-strings",
@@ -109,11 +92,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.STRINGS",
-      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccafdsse001-dwesanctuary, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_polish.STRINGS",
+      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_english.STRINGS"
     },
     {
       "id": "ccafdsse001-dwesanctuary-pl-dlstrings",
@@ -124,11 +104,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccafdsse001-dwesanctuary, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_english.DLSTRINGS"
     },
     {
       "id": "ccafdsse001-dwesanctuary-pl-ilstrings",
@@ -139,11 +116,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccafdsse001-dwesanctuary, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccafdsse001-dwesanctuary_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccafdsse001-dwesanctuary_english.ILSTRINGS"
     },
     {
       "id": "ccasvsse001-almsivi-pl-strings",
@@ -154,11 +128,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccasvsse001-almsivi_pl.STRINGS",
-      "dst": "Data\\Strings\\ccasvsse001-almsivi_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccasvsse001-almsivi, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccasvsse001-almsivi_polish.STRINGS",
+      "dst": "Data\\Strings\\ccasvsse001-almsivi_english.STRINGS"
     },
     {
       "id": "ccasvsse001-almsivi-pl-dlstrings",
@@ -169,11 +140,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccasvsse001-almsivi_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccasvsse001-almsivi_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccasvsse001-almsivi, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccasvsse001-almsivi_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccasvsse001-almsivi_english.DLSTRINGS"
     },
     {
       "id": "ccasvsse001-almsivi-pl-ilstrings",
@@ -184,11 +152,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccasvsse001-almsivi_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccasvsse001-almsivi_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccasvsse001-almsivi, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccasvsse001-almsivi_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccasvsse001-almsivi_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse001-fish-pl-strings",
@@ -199,11 +164,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse001-fish_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse001-fish_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse001-fish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse001-fish_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse001-fish_english.STRINGS"
     },
     {
       "id": "ccbgssse001-fish-pl-dlstrings",
@@ -214,11 +176,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse001-fish_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse001-fish_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse001-fish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse001-fish_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse001-fish_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse001-fish-pl-ilstrings",
@@ -229,11 +188,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse001-fish_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse001-fish_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse001-fish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse001-fish_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse001-fish_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse002-exoticarrows-pl-strings",
@@ -244,11 +200,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse002-exoticarrows_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse002-exoticarrows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse002-exoticarrows_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_english.STRINGS"
     },
     {
       "id": "ccbgssse002-exoticarrows-pl-dlstrings",
@@ -259,11 +212,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse002-exoticarrows_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse002-exoticarrows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse002-exoticarrows_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse002-exoticarrows-pl-ilstrings",
@@ -274,11 +224,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse002-exoticarrows_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse002-exoticarrows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse002-exoticarrows_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse002-exoticarrows_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse003-zombies-pl-strings",
@@ -289,11 +236,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse003-zombies_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse003-zombies_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse003-zombies, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse003-zombies_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse003-zombies_english.STRINGS"
     },
     {
       "id": "ccbgssse003-zombies-pl-dlstrings",
@@ -304,11 +248,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse003-zombies_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse003-zombies_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse003-zombies, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse003-zombies_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse003-zombies_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse003-zombies-pl-ilstrings",
@@ -319,11 +260,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse003-zombies_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse003-zombies_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse003-zombies, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse003-zombies_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse003-zombies_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse004-ruinsedge-pl-strings",
@@ -334,11 +272,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse004-ruinsedge_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse004-ruinsedge, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse004-ruinsedge_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_english.STRINGS"
     },
     {
       "id": "ccbgssse004-ruinsedge-pl-dlstrings",
@@ -349,11 +284,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse004-ruinsedge_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse004-ruinsedge, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse004-ruinsedge_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse004-ruinsedge-pl-ilstrings",
@@ -364,11 +296,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse004-ruinsedge_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse004-ruinsedge, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse004-ruinsedge_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse004-ruinsedge_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse005-goldbrand-pl-strings",
@@ -379,11 +308,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse005-goldbrand_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse005-goldbrand_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse005-goldbrand, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse005-goldbrand_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse005-goldbrand_english.STRINGS"
     },
     {
       "id": "ccbgssse005-goldbrand-pl-dlstrings",
@@ -394,11 +320,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse005-goldbrand_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse005-goldbrand_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse005-goldbrand, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse005-goldbrand_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse005-goldbrand_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse005-goldbrand-pl-ilstrings",
@@ -409,11 +332,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse005-goldbrand_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse005-goldbrand_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse005-goldbrand, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse005-goldbrand_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse005-goldbrand_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse006-stendarshammer-pl-strings",
@@ -424,11 +344,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse006-stendarshammer_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse006-stendarshammer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse006-stendarshammer_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_english.STRINGS"
     },
     {
       "id": "ccbgssse006-stendarshammer-pl-dlstrings",
@@ -439,11 +356,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse006-stendarshammer_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse006-stendarshammer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse006-stendarshammer_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse006-stendarshammer-pl-ilstrings",
@@ -454,11 +368,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse006-stendarshammer_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse006-stendarshammer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse006-stendarshammer_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse006-stendarshammer_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse007-chrysamere-pl-strings",
@@ -469,11 +380,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse007-chrysamere_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse007-chrysamere_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse007-chrysamere, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse007-chrysamere_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse007-chrysamere_english.STRINGS"
     },
     {
       "id": "ccbgssse007-chrysamere-pl-dlstrings",
@@ -484,11 +392,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse007-chrysamere_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse007-chrysamere_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse007-chrysamere, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse007-chrysamere_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse007-chrysamere_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse007-chrysamere-pl-ilstrings",
@@ -499,11 +404,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse007-chrysamere_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse007-chrysamere_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse007-chrysamere, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse007-chrysamere_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse007-chrysamere_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse008-wraithguard-pl-strings",
@@ -514,11 +416,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse008-wraithguard_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse008-wraithguard_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse008-wraithguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse008-wraithguard_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse008-wraithguard_english.STRINGS"
     },
     {
       "id": "ccbgssse008-wraithguard-pl-dlstrings",
@@ -529,11 +428,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse008-wraithguard_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse008-wraithguard_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse008-wraithguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse008-wraithguard_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse008-wraithguard_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse008-wraithguard-pl-ilstrings",
@@ -544,11 +440,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse008-wraithguard_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse008-wraithguard_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse008-wraithguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse008-wraithguard_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse008-wraithguard_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse010-petdwarvenarmoredmudcrab-pl-strings",
@@ -559,11 +452,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse010-petdwarvenarmoredmudcrab, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_english.STRINGS"
     },
     {
       "id": "ccbgssse010-petdwarvenarmoredmudcrab-pl-dlstrings",
@@ -574,11 +464,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse010-petdwarvenarmoredmudcrab, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse010-petdwarvenarmoredmudcrab-pl-ilstrings",
@@ -589,11 +476,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse010-petdwarvenarmoredmudcrab, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse010-petdwarvenarmoredmudcrab_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse011-hrsarmrelvn-pl-strings",
@@ -604,11 +488,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse011-hrsarmrelvn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_english.STRINGS"
     },
     {
       "id": "ccbgssse011-hrsarmrelvn-pl-dlstrings",
@@ -619,11 +500,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse011-hrsarmrelvn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse011-hrsarmrelvn-pl-ilstrings",
@@ -634,11 +512,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse011-hrsarmrelvn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse011-hrsarmrelvn_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse011-hrsarmrelvn_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse012-hrsarmrstl-pl-strings",
@@ -649,11 +524,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse012-hrsarmrstl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_english.STRINGS"
     },
     {
       "id": "ccbgssse012-hrsarmrstl-pl-dlstrings",
@@ -664,11 +536,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse012-hrsarmrstl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse012-hrsarmrstl-pl-ilstrings",
@@ -679,11 +548,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse012-hrsarmrstl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse012-hrsarmrstl_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse012-hrsarmrstl_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse013-dawnfang-pl-strings",
@@ -694,11 +560,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse013-dawnfang_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse013-dawnfang_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse013-dawnfang, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse013-dawnfang_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse013-dawnfang_english.STRINGS"
     },
     {
       "id": "ccbgssse013-dawnfang-pl-dlstrings",
@@ -709,11 +572,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse013-dawnfang_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse013-dawnfang_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse013-dawnfang, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse013-dawnfang_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse013-dawnfang_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse013-dawnfang-pl-ilstrings",
@@ -724,11 +584,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse013-dawnfang_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse013-dawnfang_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse013-dawnfang, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse013-dawnfang_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse013-dawnfang_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse014-spellpack01-pl-strings",
@@ -739,11 +596,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse014-spellpack01_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse014-spellpack01_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse014-spellpack01, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse014-spellpack01_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse014-spellpack01_english.STRINGS"
     },
     {
       "id": "ccbgssse014-spellpack01-pl-dlstrings",
@@ -754,11 +608,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse014-spellpack01_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse014-spellpack01_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse014-spellpack01, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse014-spellpack01_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse014-spellpack01_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse014-spellpack01-pl-ilstrings",
@@ -769,11 +620,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse014-spellpack01_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse014-spellpack01_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse014-spellpack01, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse014-spellpack01_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse014-spellpack01_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse016-umbra-pl-strings",
@@ -784,11 +632,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse016-umbra_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse016-umbra_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse016-umbra, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse016-umbra_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse016-umbra_english.STRINGS"
     },
     {
       "id": "ccbgssse016-umbra-pl-dlstrings",
@@ -799,11 +644,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse016-umbra_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse016-umbra_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse016-umbra, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse016-umbra_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse016-umbra_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse016-umbra-pl-ilstrings",
@@ -814,11 +656,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse016-umbra_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse016-umbra_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse016-umbra, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse016-umbra_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse016-umbra_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse018-shadowrend-pl-strings",
@@ -829,11 +668,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse018-shadowrend_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse018-shadowrend_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse018-shadowrend, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse018-shadowrend_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse018-shadowrend_english.STRINGS"
     },
     {
       "id": "ccbgssse018-shadowrend-pl-dlstrings",
@@ -844,11 +680,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse018-shadowrend_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse018-shadowrend_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse018-shadowrend, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse018-shadowrend_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse018-shadowrend_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse018-shadowrend-pl-ilstrings",
@@ -859,11 +692,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse018-shadowrend_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse018-shadowrend_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse018-shadowrend, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse018-shadowrend_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse018-shadowrend_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse019-staffofsheogorath-pl-strings",
@@ -874,11 +704,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse019-staffofsheogorath, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_english.STRINGS"
     },
     {
       "id": "ccbgssse019-staffofsheogorath-pl-dlstrings",
@@ -889,11 +716,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse019-staffofsheogorath, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse019-staffofsheogorath-pl-ilstrings",
@@ -904,11 +728,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse019-staffofsheogorath, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse019-staffofsheogorath_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse019-staffofsheogorath_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse020-graycowl-pl-strings",
@@ -919,11 +740,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse020-graycowl_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse020-graycowl_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse020-graycowl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse020-graycowl_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse020-graycowl_english.STRINGS"
     },
     {
       "id": "ccbgssse020-graycowl-pl-dlstrings",
@@ -934,11 +752,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse020-graycowl_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse020-graycowl_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse020-graycowl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse020-graycowl_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse020-graycowl_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse020-graycowl-pl-ilstrings",
@@ -949,11 +764,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse020-graycowl_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse020-graycowl_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse020-graycowl, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse020-graycowl_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse020-graycowl_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse021-lordsmail-pl-strings",
@@ -964,11 +776,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse021-lordsmail_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse021-lordsmail_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse021-lordsmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse021-lordsmail_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse021-lordsmail_english.STRINGS"
     },
     {
       "id": "ccbgssse021-lordsmail-pl-dlstrings",
@@ -979,11 +788,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse021-lordsmail_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse021-lordsmail_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse021-lordsmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse021-lordsmail_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse021-lordsmail_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse021-lordsmail-pl-ilstrings",
@@ -994,11 +800,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse021-lordsmail_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse021-lordsmail_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse021-lordsmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse021-lordsmail_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse021-lordsmail_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse025-advdsgs-pl-strings",
@@ -1009,11 +812,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse025-advdsgs_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse025-advdsgs_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse025-advdsgs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse025-advdsgs_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse025-advdsgs_english.STRINGS"
     },
     {
       "id": "ccbgssse025-advdsgs-pl-dlstrings",
@@ -1024,11 +824,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse025-advdsgs_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse025-advdsgs_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse025-advdsgs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse025-advdsgs_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse025-advdsgs_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse025-advdsgs-pl-ilstrings",
@@ -1039,11 +836,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse025-advdsgs_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse025-advdsgs_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse025-advdsgs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse025-advdsgs_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse025-advdsgs_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse031-advcyrus-pl-strings",
@@ -1054,11 +848,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse031-advcyrus_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse031-advcyrus_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse031-advcyrus, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse031-advcyrus_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse031-advcyrus_english.STRINGS"
     },
     {
       "id": "ccbgssse031-advcyrus-pl-dlstrings",
@@ -1069,11 +860,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse031-advcyrus_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse031-advcyrus_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse031-advcyrus, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse031-advcyrus_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse031-advcyrus_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse031-advcyrus-pl-ilstrings",
@@ -1084,11 +872,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse031-advcyrus_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse031-advcyrus_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse031-advcyrus, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse031-advcyrus_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse031-advcyrus_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse034-mntuni-pl-strings",
@@ -1099,11 +884,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse034-mntuni_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse034-mntuni_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse034-mntuni, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse034-mntuni_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse034-mntuni_english.STRINGS"
     },
     {
       "id": "ccbgssse034-mntuni-pl-dlstrings",
@@ -1114,11 +896,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse034-mntuni_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse034-mntuni_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse034-mntuni, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse034-mntuni_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse034-mntuni_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse034-mntuni-pl-ilstrings",
@@ -1129,11 +908,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse034-mntuni_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse034-mntuni_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse034-mntuni, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse034-mntuni_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse034-mntuni_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse035-petnhound-pl-strings",
@@ -1144,11 +920,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse035-petnhound_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse035-petnhound_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse035-petnhound, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse035-petnhound_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse035-petnhound_english.STRINGS"
     },
     {
       "id": "ccbgssse035-petnhound-pl-dlstrings",
@@ -1159,11 +932,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse035-petnhound_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse035-petnhound_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse035-petnhound, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse035-petnhound_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse035-petnhound_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse035-petnhound-pl-ilstrings",
@@ -1174,11 +944,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse035-petnhound_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse035-petnhound_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse035-petnhound, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse035-petnhound_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse035-petnhound_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse036-petbwolf-pl-strings",
@@ -1189,11 +956,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse036-petbwolf_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse036-petbwolf_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse036-petbwolf, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse036-petbwolf_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse036-petbwolf_english.STRINGS"
     },
     {
       "id": "ccbgssse036-petbwolf-pl-dlstrings",
@@ -1204,11 +968,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse036-petbwolf_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse036-petbwolf_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse036-petbwolf, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse036-petbwolf_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse036-petbwolf_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse036-petbwolf-pl-ilstrings",
@@ -1219,11 +980,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse036-petbwolf_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse036-petbwolf_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse036-petbwolf, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse036-petbwolf_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse036-petbwolf_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse037-curios-pl-strings",
@@ -1234,11 +992,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse037-curios_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse037-curios_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse037-curios, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse037-curios_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse037-curios_english.STRINGS"
     },
     {
       "id": "ccbgssse037-curios-pl-dlstrings",
@@ -1249,11 +1004,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse037-curios_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse037-curios_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse037-curios, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse037-curios_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse037-curios_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse037-curios-pl-ilstrings",
@@ -1264,11 +1016,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse037-curios_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse037-curios_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse037-curios, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse037-curios_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse037-curios_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse038-bowofshadows-pl-strings",
@@ -1279,11 +1028,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse038-bowofshadows_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse038-bowofshadows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse038-bowofshadows_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_english.STRINGS"
     },
     {
       "id": "ccbgssse038-bowofshadows-pl-dlstrings",
@@ -1294,11 +1040,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse038-bowofshadows_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse038-bowofshadows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse038-bowofshadows_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse038-bowofshadows-pl-ilstrings",
@@ -1309,11 +1052,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse038-bowofshadows_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse038-bowofshadows, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse038-bowofshadows_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse038-bowofshadows_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse040-advobgobs-pl-strings",
@@ -1324,11 +1064,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse040-advobgobs_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse040-advobgobs_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse040-advobgobs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse040-advobgobs_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse040-advobgobs_english.STRINGS"
     },
     {
       "id": "ccbgssse040-advobgobs-pl-dlstrings",
@@ -1339,11 +1076,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse040-advobgobs_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse040-advobgobs_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse040-advobgobs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse040-advobgobs_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse040-advobgobs_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse040-advobgobs-pl-ilstrings",
@@ -1354,11 +1088,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse040-advobgobs_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse040-advobgobs_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse040-advobgobs, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse040-advobgobs_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse040-advobgobs_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse041-netchleather-pl-strings",
@@ -1369,11 +1100,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse041-netchleather_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse041-netchleather_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse041-netchleather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse041-netchleather_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse041-netchleather_english.STRINGS"
     },
     {
       "id": "ccbgssse041-netchleather-pl-dlstrings",
@@ -1384,11 +1112,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse041-netchleather_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse041-netchleather_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse041-netchleather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse041-netchleather_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse041-netchleather_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse041-netchleather-pl-ilstrings",
@@ -1399,11 +1124,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse041-netchleather_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse041-netchleather_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse041-netchleather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse041-netchleather_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse041-netchleather_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse043-crosselv-pl-strings",
@@ -1414,11 +1136,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse043-crosselv_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse043-crosselv_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse043-crosselv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse043-crosselv_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse043-crosselv_english.STRINGS"
     },
     {
       "id": "ccbgssse043-crosselv-pl-dlstrings",
@@ -1429,11 +1148,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse043-crosselv_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse043-crosselv_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse043-crosselv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse043-crosselv_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse043-crosselv_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse043-crosselv-pl-ilstrings",
@@ -1444,11 +1160,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse043-crosselv_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse043-crosselv_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse043-crosselv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse043-crosselv_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse043-crosselv_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse045-hasedoki-pl-strings",
@@ -1459,11 +1172,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse045-hasedoki_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse045-hasedoki_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse045-hasedoki, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse045-hasedoki_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse045-hasedoki_english.STRINGS"
     },
     {
       "id": "ccbgssse045-hasedoki-pl-dlstrings",
@@ -1474,11 +1184,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse045-hasedoki_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse045-hasedoki_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse045-hasedoki, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse045-hasedoki_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse045-hasedoki_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse045-hasedoki-pl-ilstrings",
@@ -1489,11 +1196,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse045-hasedoki_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse045-hasedoki_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse045-hasedoki, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse045-hasedoki_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse045-hasedoki_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse050-ba_daedric-pl-strings",
@@ -1504,11 +1208,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse050-ba_daedric_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse050-ba_daedric, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse050-ba_daedric_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_english.STRINGS"
     },
     {
       "id": "ccbgssse050-ba_daedric-pl-dlstrings",
@@ -1519,11 +1220,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse050-ba_daedric_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse050-ba_daedric, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse050-ba_daedric_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse050-ba_daedric-pl-ilstrings",
@@ -1534,11 +1232,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse050-ba_daedric_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse050-ba_daedric, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse050-ba_daedric_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse050-ba_daedric_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse051-ba_daedricmail-pl-strings",
@@ -1549,11 +1244,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse051-ba_daedricmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_english.STRINGS"
     },
     {
       "id": "ccbgssse051-ba_daedricmail-pl-dlstrings",
@@ -1564,11 +1256,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse051-ba_daedricmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse051-ba_daedricmail-pl-ilstrings",
@@ -1579,11 +1268,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse051-ba_daedricmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse051-ba_daedricmail_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse051-ba_daedricmail_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse052-ba_iron-pl-strings",
@@ -1594,11 +1280,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse052-ba_iron_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse052-ba_iron_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse052-ba_iron, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse052-ba_iron_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse052-ba_iron_english.STRINGS"
     },
     {
       "id": "ccbgssse052-ba_iron-pl-dlstrings",
@@ -1609,11 +1292,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse052-ba_iron_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse052-ba_iron_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse052-ba_iron, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse052-ba_iron_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse052-ba_iron_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse052-ba_iron-pl-ilstrings",
@@ -1624,11 +1304,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse052-ba_iron_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse052-ba_iron_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse052-ba_iron, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse052-ba_iron_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse052-ba_iron_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse053-ba_leather-pl-strings",
@@ -1639,11 +1316,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse053-ba_leather_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse053-ba_leather_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse053-ba_leather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse053-ba_leather_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse053-ba_leather_english.STRINGS"
     },
     {
       "id": "ccbgssse053-ba_leather-pl-dlstrings",
@@ -1654,11 +1328,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse053-ba_leather_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse053-ba_leather_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse053-ba_leather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse053-ba_leather_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse053-ba_leather_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse053-ba_leather-pl-ilstrings",
@@ -1669,11 +1340,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse053-ba_leather_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse053-ba_leather_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse053-ba_leather, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse053-ba_leather_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse053-ba_leather_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse054-ba_orcish-pl-strings",
@@ -1684,11 +1352,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse054-ba_orcish_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse054-ba_orcish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse054-ba_orcish_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_english.STRINGS"
     },
     {
       "id": "ccbgssse054-ba_orcish-pl-dlstrings",
@@ -1699,11 +1364,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse054-ba_orcish_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse054-ba_orcish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse054-ba_orcish_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse054-ba_orcish-pl-ilstrings",
@@ -1714,11 +1376,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse054-ba_orcish_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse054-ba_orcish, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse054-ba_orcish_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse054-ba_orcish_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse055-ba_orcishscaled-pl-strings",
@@ -1729,11 +1388,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse055-ba_orcishscaled, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_english.STRINGS"
     },
     {
       "id": "ccbgssse055-ba_orcishscaled-pl-dlstrings",
@@ -1744,11 +1400,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse055-ba_orcishscaled, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse055-ba_orcishscaled-pl-ilstrings",
@@ -1759,11 +1412,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse055-ba_orcishscaled, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse055-ba_orcishscaled_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse055-ba_orcishscaled_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse056-ba_silver-pl-strings",
@@ -1774,11 +1424,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse056-ba_silver_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse056-ba_silver_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse056-ba_silver, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse056-ba_silver_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse056-ba_silver_english.STRINGS"
     },
     {
       "id": "ccbgssse056-ba_silver-pl-dlstrings",
@@ -1789,11 +1436,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse056-ba_silver_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse056-ba_silver_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse056-ba_silver, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse056-ba_silver_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse056-ba_silver_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse056-ba_silver-pl-ilstrings",
@@ -1804,11 +1448,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse056-ba_silver_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse056-ba_silver_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse056-ba_silver, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse056-ba_silver_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse056-ba_silver_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse057-ba_stalhrim-pl-strings",
@@ -1819,11 +1460,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse057-ba_stalhrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_english.STRINGS"
     },
     {
       "id": "ccbgssse057-ba_stalhrim-pl-dlstrings",
@@ -1834,11 +1472,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse057-ba_stalhrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse057-ba_stalhrim-pl-ilstrings",
@@ -1849,11 +1484,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse057-ba_stalhrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse057-ba_stalhrim_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse057-ba_stalhrim_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse058-ba_steel-pl-strings",
@@ -1864,11 +1496,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse058-ba_steel_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse058-ba_steel_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse058-ba_steel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse058-ba_steel_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse058-ba_steel_english.STRINGS"
     },
     {
       "id": "ccbgssse058-ba_steel-pl-dlstrings",
@@ -1879,11 +1508,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse058-ba_steel_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse058-ba_steel_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse058-ba_steel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse058-ba_steel_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse058-ba_steel_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse058-ba_steel-pl-ilstrings",
@@ -1894,11 +1520,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse058-ba_steel_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse058-ba_steel_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse058-ba_steel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse058-ba_steel_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse058-ba_steel_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse059-ba_dragonplate-pl-strings",
@@ -1909,11 +1532,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse059-ba_dragonplate, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_english.STRINGS"
     },
     {
       "id": "ccbgssse059-ba_dragonplate-pl-dlstrings",
@@ -1924,11 +1544,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse059-ba_dragonplate, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse059-ba_dragonplate-pl-ilstrings",
@@ -1939,11 +1556,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse059-ba_dragonplate, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse059-ba_dragonplate_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse059-ba_dragonplate_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse060-ba_dragonscale-pl-strings",
@@ -1954,11 +1568,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse060-ba_dragonscale, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_english.STRINGS"
     },
     {
       "id": "ccbgssse060-ba_dragonscale-pl-dlstrings",
@@ -1969,11 +1580,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse060-ba_dragonscale, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse060-ba_dragonscale-pl-ilstrings",
@@ -1984,11 +1592,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse060-ba_dragonscale, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse060-ba_dragonscale_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse060-ba_dragonscale_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse061-ba_dwarven-pl-strings",
@@ -1999,11 +1604,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse061-ba_dwarven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_english.STRINGS"
     },
     {
       "id": "ccbgssse061-ba_dwarven-pl-dlstrings",
@@ -2014,11 +1616,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse061-ba_dwarven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse061-ba_dwarven-pl-ilstrings",
@@ -2029,11 +1628,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse061-ba_dwarven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse061-ba_dwarven_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse061-ba_dwarven_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse062-ba_dwarvenmail-pl-strings",
@@ -2044,11 +1640,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse062-ba_dwarvenmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_english.STRINGS"
     },
     {
       "id": "ccbgssse062-ba_dwarvenmail-pl-dlstrings",
@@ -2059,11 +1652,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse062-ba_dwarvenmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse062-ba_dwarvenmail-pl-ilstrings",
@@ -2074,11 +1664,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse062-ba_dwarvenmail, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse062-ba_dwarvenmail_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse063-ba_ebony-pl-strings",
@@ -2089,11 +1676,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse063-ba_ebony_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse063-ba_ebony, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse063-ba_ebony_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_english.STRINGS"
     },
     {
       "id": "ccbgssse063-ba_ebony-pl-dlstrings",
@@ -2104,11 +1688,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse063-ba_ebony_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse063-ba_ebony, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse063-ba_ebony_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse063-ba_ebony-pl-ilstrings",
@@ -2119,11 +1700,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse063-ba_ebony_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse063-ba_ebony, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse063-ba_ebony_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse063-ba_ebony_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse064-ba_elven-pl-strings",
@@ -2134,11 +1712,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse064-ba_elven_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse064-ba_elven_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse064-ba_elven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse064-ba_elven_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse064-ba_elven_english.STRINGS"
     },
     {
       "id": "ccbgssse064-ba_elven-pl-dlstrings",
@@ -2149,11 +1724,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse064-ba_elven_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse064-ba_elven_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse064-ba_elven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse064-ba_elven_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse064-ba_elven_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse064-ba_elven-pl-ilstrings",
@@ -2164,11 +1736,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse064-ba_elven_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse064-ba_elven_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse064-ba_elven, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse064-ba_elven_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse064-ba_elven_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse066-staves-pl-strings",
@@ -2179,11 +1748,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse066-staves_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse066-staves_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse066-staves, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse066-staves_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse066-staves_english.STRINGS"
     },
     {
       "id": "ccbgssse066-staves-pl-dlstrings",
@@ -2194,11 +1760,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse066-staves_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse066-staves_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse066-staves, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse066-staves_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse066-staves_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse066-staves-pl-ilstrings",
@@ -2209,11 +1772,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse066-staves_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse066-staves_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse066-staves, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse066-staves_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse066-staves_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse067-daedinv-pl-strings",
@@ -2224,11 +1784,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse067-daedinv_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse067-daedinv_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse067-daedinv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse067-daedinv_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse067-daedinv_english.STRINGS"
     },
     {
       "id": "ccbgssse067-daedinv-pl-dlstrings",
@@ -2239,11 +1796,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse067-daedinv_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse067-daedinv_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse067-daedinv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse067-daedinv_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse067-daedinv_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse067-daedinv-pl-ilstrings",
@@ -2254,11 +1808,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse067-daedinv_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse067-daedinv_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse067-daedinv, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse067-daedinv_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse067-daedinv_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse068-bloodfall-pl-strings",
@@ -2269,11 +1820,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse068-bloodfall_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse068-bloodfall_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse068-bloodfall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse068-bloodfall_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse068-bloodfall_english.STRINGS"
     },
     {
       "id": "ccbgssse068-bloodfall-pl-dlstrings",
@@ -2284,11 +1832,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse068-bloodfall_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse068-bloodfall_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse068-bloodfall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse068-bloodfall_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse068-bloodfall_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse068-bloodfall-pl-ilstrings",
@@ -2299,11 +1844,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse068-bloodfall_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse068-bloodfall_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse068-bloodfall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse068-bloodfall_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse068-bloodfall_english.ILSTRINGS"
     },
     {
       "id": "ccbgssse069-contest-pl-strings",
@@ -2314,11 +1856,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse069-contest_pl.STRINGS",
-      "dst": "Data\\Strings\\ccbgssse069-contest_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccbgssse069-contest, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse069-contest_polish.STRINGS",
+      "dst": "Data\\Strings\\ccbgssse069-contest_english.STRINGS"
     },
     {
       "id": "ccbgssse069-contest-pl-dlstrings",
@@ -2329,11 +1868,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse069-contest_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse069-contest_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccbgssse069-contest, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse069-contest_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse069-contest_english.DLSTRINGS"
     },
     {
       "id": "ccbgssse069-contest-pl-ilstrings",
@@ -2344,11 +1880,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccbgssse069-contest_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccbgssse069-contest_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccbgssse069-contest, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccbgssse069-contest_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccbgssse069-contest_english.ILSTRINGS"
     },
     {
       "id": "cccbhsse001-gaunt-pl-strings",
@@ -2359,11 +1892,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cccbhsse001-gaunt_pl.STRINGS",
-      "dst": "Data\\Strings\\cccbhsse001-gaunt_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cccbhsse001-gaunt, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cccbhsse001-gaunt_polish.STRINGS",
+      "dst": "Data\\Strings\\cccbhsse001-gaunt_english.STRINGS"
     },
     {
       "id": "cccbhsse001-gaunt-pl-dlstrings",
@@ -2374,11 +1904,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cccbhsse001-gaunt_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cccbhsse001-gaunt_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cccbhsse001-gaunt, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cccbhsse001-gaunt_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cccbhsse001-gaunt_english.DLSTRINGS"
     },
     {
       "id": "cccbhsse001-gaunt-pl-ilstrings",
@@ -2389,11 +1916,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cccbhsse001-gaunt_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cccbhsse001-gaunt_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cccbhsse001-gaunt, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cccbhsse001-gaunt_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cccbhsse001-gaunt_english.ILSTRINGS"
     },
     {
       "id": "ccedhsse001-norjewel-pl-strings",
@@ -2404,11 +1928,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse001-norjewel_pl.STRINGS",
-      "dst": "Data\\Strings\\ccedhsse001-norjewel_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccedhsse001-norjewel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse001-norjewel_polish.STRINGS",
+      "dst": "Data\\Strings\\ccedhsse001-norjewel_english.STRINGS"
     },
     {
       "id": "ccedhsse001-norjewel-pl-dlstrings",
@@ -2419,11 +1940,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse001-norjewel_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse001-norjewel_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccedhsse001-norjewel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse001-norjewel_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse001-norjewel_english.DLSTRINGS"
     },
     {
       "id": "ccedhsse001-norjewel-pl-ilstrings",
@@ -2434,11 +1952,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse001-norjewel_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse001-norjewel_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccedhsse001-norjewel, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse001-norjewel_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse001-norjewel_english.ILSTRINGS"
     },
     {
       "id": "ccedhsse002-splkntset-pl-strings",
@@ -2449,11 +1964,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse002-splkntset_pl.STRINGS",
-      "dst": "Data\\Strings\\ccedhsse002-splkntset_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccedhsse002-splkntset, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse002-splkntset_polish.STRINGS",
+      "dst": "Data\\Strings\\ccedhsse002-splkntset_english.STRINGS"
     },
     {
       "id": "ccedhsse002-splkntset-pl-dlstrings",
@@ -2464,11 +1976,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse002-splkntset_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse002-splkntset_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccedhsse002-splkntset, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse002-splkntset_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse002-splkntset_english.DLSTRINGS"
     },
     {
       "id": "ccedhsse002-splkntset-pl-ilstrings",
@@ -2479,11 +1988,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse002-splkntset_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse002-splkntset_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccedhsse002-splkntset, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse002-splkntset_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse002-splkntset_english.ILSTRINGS"
     },
     {
       "id": "ccedhsse003-redguard-pl-strings",
@@ -2494,11 +2000,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse003-redguard_pl.STRINGS",
-      "dst": "Data\\Strings\\ccedhsse003-redguard_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccedhsse003-redguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse003-redguard_polish.STRINGS",
+      "dst": "Data\\Strings\\ccedhsse003-redguard_english.STRINGS"
     },
     {
       "id": "ccedhsse003-redguard-pl-dlstrings",
@@ -2509,11 +2012,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse003-redguard_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse003-redguard_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccedhsse003-redguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse003-redguard_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse003-redguard_english.DLSTRINGS"
     },
     {
       "id": "ccedhsse003-redguard-pl-ilstrings",
@@ -2524,11 +2024,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccedhsse003-redguard_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccedhsse003-redguard_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccedhsse003-redguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccedhsse003-redguard_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccedhsse003-redguard_english.ILSTRINGS"
     },
     {
       "id": "cceejsse001-hstead-pl-strings",
@@ -2539,11 +2036,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse001-hstead_pl.STRINGS",
-      "dst": "Data\\Strings\\cceejsse001-hstead_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cceejsse001-hstead, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse001-hstead_polish.STRINGS",
+      "dst": "Data\\Strings\\cceejsse001-hstead_english.STRINGS"
     },
     {
       "id": "cceejsse001-hstead-pl-dlstrings",
@@ -2554,11 +2048,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse001-hstead_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cceejsse001-hstead_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cceejsse001-hstead, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse001-hstead_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cceejsse001-hstead_english.DLSTRINGS"
     },
     {
       "id": "cceejsse001-hstead-pl-ilstrings",
@@ -2569,11 +2060,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse001-hstead_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cceejsse001-hstead_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cceejsse001-hstead, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse001-hstead_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cceejsse001-hstead_english.ILSTRINGS"
     },
     {
       "id": "cceejsse002-tower-pl-strings",
@@ -2584,11 +2072,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse002-tower_pl.STRINGS",
-      "dst": "Data\\Strings\\cceejsse002-tower_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cceejsse002-tower, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse002-tower_polish.STRINGS",
+      "dst": "Data\\Strings\\cceejsse002-tower_english.STRINGS"
     },
     {
       "id": "cceejsse002-tower-pl-dlstrings",
@@ -2599,11 +2084,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse002-tower_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cceejsse002-tower_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cceejsse002-tower, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse002-tower_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cceejsse002-tower_english.DLSTRINGS"
     },
     {
       "id": "cceejsse002-tower-pl-ilstrings",
@@ -2614,11 +2096,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse002-tower_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cceejsse002-tower_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cceejsse002-tower, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse002-tower_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cceejsse002-tower_english.ILSTRINGS"
     },
     {
       "id": "cceejsse003-hollow-pl-strings",
@@ -2629,11 +2108,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse003-hollow_pl.STRINGS",
-      "dst": "Data\\Strings\\cceejsse003-hollow_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cceejsse003-hollow, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse003-hollow_polish.STRINGS",
+      "dst": "Data\\Strings\\cceejsse003-hollow_english.STRINGS"
     },
     {
       "id": "cceejsse003-hollow-pl-dlstrings",
@@ -2644,11 +2120,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse003-hollow_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cceejsse003-hollow_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cceejsse003-hollow, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse003-hollow_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cceejsse003-hollow_english.DLSTRINGS"
     },
     {
       "id": "cceejsse003-hollow-pl-ilstrings",
@@ -2659,11 +2132,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse003-hollow_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cceejsse003-hollow_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cceejsse003-hollow, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse003-hollow_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cceejsse003-hollow_english.ILSTRINGS"
     },
     {
       "id": "cceejsse004-hall-pl-strings",
@@ -2674,11 +2144,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse004-hall_pl.STRINGS",
-      "dst": "Data\\Strings\\cceejsse004-hall_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cceejsse004-hall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse004-hall_polish.STRINGS",
+      "dst": "Data\\Strings\\cceejsse004-hall_english.STRINGS"
     },
     {
       "id": "cceejsse004-hall-pl-dlstrings",
@@ -2689,11 +2156,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse004-hall_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cceejsse004-hall_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cceejsse004-hall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse004-hall_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cceejsse004-hall_english.DLSTRINGS"
     },
     {
       "id": "cceejsse004-hall-pl-ilstrings",
@@ -2704,11 +2168,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse004-hall_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cceejsse004-hall_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cceejsse004-hall, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse004-hall_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cceejsse004-hall_english.ILSTRINGS"
     },
     {
       "id": "cceejsse005-cave-pl-strings",
@@ -2719,11 +2180,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse005-cave_pl.STRINGS",
-      "dst": "Data\\Strings\\cceejsse005-cave_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cceejsse005-cave, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse005-cave_polish.STRINGS",
+      "dst": "Data\\Strings\\cceejsse005-cave_english.STRINGS"
     },
     {
       "id": "cceejsse005-cave-pl-dlstrings",
@@ -2734,11 +2192,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse005-cave_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cceejsse005-cave_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cceejsse005-cave, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse005-cave_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cceejsse005-cave_english.DLSTRINGS"
     },
     {
       "id": "cceejsse005-cave-pl-ilstrings",
@@ -2749,11 +2204,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cceejsse005-cave_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cceejsse005-cave_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cceejsse005-cave, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cceejsse005-cave_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cceejsse005-cave_english.ILSTRINGS"
     },
     {
       "id": "ccffbsse001-imperialdragon-pl-strings",
@@ -2764,11 +2216,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse001-imperialdragon_pl.STRINGS",
-      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccffbsse001-imperialdragon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse001-imperialdragon_polish.STRINGS",
+      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_english.STRINGS"
     },
     {
       "id": "ccffbsse001-imperialdragon-pl-dlstrings",
@@ -2779,11 +2228,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse001-imperialdragon_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccffbsse001-imperialdragon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse001-imperialdragon_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_english.DLSTRINGS"
     },
     {
       "id": "ccffbsse001-imperialdragon-pl-ilstrings",
@@ -2794,11 +2240,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse001-imperialdragon_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccffbsse001-imperialdragon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse001-imperialdragon_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccffbsse001-imperialdragon_english.ILSTRINGS"
     },
     {
       "id": "ccffbsse002-crossbowpack-pl-strings",
@@ -2809,11 +2252,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse002-crossbowpack_pl.STRINGS",
-      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccffbsse002-crossbowpack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse002-crossbowpack_polish.STRINGS",
+      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_english.STRINGS"
     },
     {
       "id": "ccffbsse002-crossbowpack-pl-dlstrings",
@@ -2824,11 +2264,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse002-crossbowpack_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccffbsse002-crossbowpack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse002-crossbowpack_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_english.DLSTRINGS"
     },
     {
       "id": "ccffbsse002-crossbowpack-pl-ilstrings",
@@ -2839,11 +2276,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccffbsse002-crossbowpack_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccffbsse002-crossbowpack, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccffbsse002-crossbowpack_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccffbsse002-crossbowpack_english.ILSTRINGS"
     },
     {
       "id": "ccfsvsse001-backpacks-pl-strings",
@@ -2854,11 +2288,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccfsvsse001-backpacks_pl.STRINGS",
-      "dst": "Data\\Strings\\ccfsvsse001-backpacks_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccfsvsse001-backpacks, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccfsvsse001-backpacks_polish.STRINGS",
+      "dst": "Data\\Strings\\ccfsvsse001-backpacks_english.STRINGS"
     },
     {
       "id": "ccfsvsse001-backpacks-pl-dlstrings",
@@ -2869,11 +2300,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccfsvsse001-backpacks_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccfsvsse001-backpacks_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccfsvsse001-backpacks, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccfsvsse001-backpacks_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccfsvsse001-backpacks_english.DLSTRINGS"
     },
     {
       "id": "ccfsvsse001-backpacks-pl-ilstrings",
@@ -2884,11 +2312,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccfsvsse001-backpacks_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccfsvsse001-backpacks_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccfsvsse001-backpacks, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccfsvsse001-backpacks_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccfsvsse001-backpacks_english.ILSTRINGS"
     },
     {
       "id": "cckrtsse001_altar-pl-strings",
@@ -2899,11 +2324,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cckrtsse001_altar_pl.STRINGS",
-      "dst": "Data\\Strings\\cckrtsse001_altar_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cckrtsse001_altar, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cckrtsse001_altar_polish.STRINGS",
+      "dst": "Data\\Strings\\cckrtsse001_altar_english.STRINGS"
     },
     {
       "id": "cckrtsse001_altar-pl-dlstrings",
@@ -2914,11 +2336,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cckrtsse001_altar_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cckrtsse001_altar_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cckrtsse001_altar, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cckrtsse001_altar_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cckrtsse001_altar_english.DLSTRINGS"
     },
     {
       "id": "cckrtsse001_altar-pl-ilstrings",
@@ -2929,11 +2348,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cckrtsse001_altar_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cckrtsse001_altar_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cckrtsse001_altar, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cckrtsse001_altar_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cckrtsse001_altar_english.ILSTRINGS"
     },
     {
       "id": "ccmtysse001-knightsofthenine-pl-strings",
@@ -2944,11 +2360,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.STRINGS",
-      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccmtysse001-knightsofthenine, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_polish.STRINGS",
+      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_english.STRINGS"
     },
     {
       "id": "ccmtysse001-knightsofthenine-pl-dlstrings",
@@ -2959,11 +2372,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccmtysse001-knightsofthenine, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_english.DLSTRINGS"
     },
     {
       "id": "ccmtysse001-knightsofthenine-pl-ilstrings",
@@ -2974,11 +2384,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccmtysse001-knightsofthenine, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse001-knightsofthenine_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccmtysse001-knightsofthenine_english.ILSTRINGS"
     },
     {
       "id": "ccmtysse002-ve-pl-strings",
@@ -2989,11 +2396,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse002-ve_pl.STRINGS",
-      "dst": "Data\\Strings\\ccmtysse002-ve_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccmtysse002-ve, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse002-ve_polish.STRINGS",
+      "dst": "Data\\Strings\\ccmtysse002-ve_english.STRINGS"
     },
     {
       "id": "ccmtysse002-ve-pl-dlstrings",
@@ -3004,11 +2408,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse002-ve_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccmtysse002-ve_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccmtysse002-ve, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse002-ve_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccmtysse002-ve_english.DLSTRINGS"
     },
     {
       "id": "ccmtysse002-ve-pl-ilstrings",
@@ -3019,11 +2420,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccmtysse002-ve_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccmtysse002-ve_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccmtysse002-ve, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccmtysse002-ve_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccmtysse002-ve_english.ILSTRINGS"
     },
     {
       "id": "ccpewsse002-armsofchaos-pl-strings",
@@ -3034,11 +2432,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccpewsse002-armsofchaos_pl.STRINGS",
-      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccpewsse002-armsofchaos, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccpewsse002-armsofchaos_polish.STRINGS",
+      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_english.STRINGS"
     },
     {
       "id": "ccpewsse002-armsofchaos-pl-dlstrings",
@@ -3049,11 +2444,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccpewsse002-armsofchaos_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccpewsse002-armsofchaos, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccpewsse002-armsofchaos_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_english.DLSTRINGS"
     },
     {
       "id": "ccpewsse002-armsofchaos-pl-ilstrings",
@@ -3064,11 +2456,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccpewsse002-armsofchaos_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccpewsse002-armsofchaos, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccpewsse002-armsofchaos_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccpewsse002-armsofchaos_english.ILSTRINGS"
     },
     {
       "id": "ccqdrsse001-survivalmode-pl-strings",
@@ -3079,11 +2468,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse001-survivalmode_pl.STRINGS",
-      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccqdrsse001-survivalmode, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse001-survivalmode_polish.STRINGS",
+      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_english.STRINGS"
     },
     {
       "id": "ccqdrsse001-survivalmode-pl-dlstrings",
@@ -3094,11 +2480,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse001-survivalmode_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccqdrsse001-survivalmode, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse001-survivalmode_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_english.DLSTRINGS"
     },
     {
       "id": "ccqdrsse001-survivalmode-pl-ilstrings",
@@ -3109,11 +2492,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse001-survivalmode_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccqdrsse001-survivalmode, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse001-survivalmode_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccqdrsse001-survivalmode_english.ILSTRINGS"
     },
     {
       "id": "ccqdrsse002-firewood-pl-strings",
@@ -3124,11 +2504,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse002-firewood_pl.STRINGS",
-      "dst": "Data\\Strings\\ccqdrsse002-firewood_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccqdrsse002-firewood, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse002-firewood_polish.STRINGS",
+      "dst": "Data\\Strings\\ccqdrsse002-firewood_english.STRINGS"
     },
     {
       "id": "ccqdrsse002-firewood-pl-dlstrings",
@@ -3139,11 +2516,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse002-firewood_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccqdrsse002-firewood_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccqdrsse002-firewood, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse002-firewood_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccqdrsse002-firewood_english.DLSTRINGS"
     },
     {
       "id": "ccqdrsse002-firewood-pl-ilstrings",
@@ -3154,11 +2528,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccqdrsse002-firewood_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccqdrsse002-firewood_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccqdrsse002-firewood, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccqdrsse002-firewood_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccqdrsse002-firewood_english.ILSTRINGS"
     },
     {
       "id": "ccrmssse001-necrohouse-pl-strings",
@@ -3169,11 +2540,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccrmssse001-necrohouse_pl.STRINGS",
-      "dst": "Data\\Strings\\ccrmssse001-necrohouse_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccrmssse001-necrohouse, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccrmssse001-necrohouse_polish.STRINGS",
+      "dst": "Data\\Strings\\ccrmssse001-necrohouse_english.STRINGS"
     },
     {
       "id": "ccrmssse001-necrohouse-pl-dlstrings",
@@ -3184,11 +2552,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccrmssse001-necrohouse_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccrmssse001-necrohouse_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccrmssse001-necrohouse, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccrmssse001-necrohouse_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccrmssse001-necrohouse_english.DLSTRINGS"
     },
     {
       "id": "ccrmssse001-necrohouse-pl-ilstrings",
@@ -3199,11 +2564,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccrmssse001-necrohouse_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccrmssse001-necrohouse_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccrmssse001-necrohouse, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccrmssse001-necrohouse_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccrmssse001-necrohouse_english.ILSTRINGS"
     },
     {
       "id": "cctwbsse001-puzzledungeon-pl-strings",
@@ -3214,11 +2576,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.STRINGS",
-      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu cctwbsse001-puzzledungeon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_polish.STRINGS",
+      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_english.STRINGS"
     },
     {
       "id": "cctwbsse001-puzzledungeon-pl-dlstrings",
@@ -3229,11 +2588,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu cctwbsse001-puzzledungeon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_english.DLSTRINGS"
     },
     {
       "id": "cctwbsse001-puzzledungeon-pl-ilstrings",
@@ -3244,11 +2600,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu cctwbsse001-puzzledungeon, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\cctwbsse001-puzzledungeon_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\cctwbsse001-puzzledungeon_english.ILSTRINGS"
     },
     {
       "id": "ccvsvsse001-winter-pl-strings",
@@ -3259,11 +2612,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse001-winter_pl.STRINGS",
-      "dst": "Data\\Strings\\ccvsvsse001-winter_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccvsvsse001-winter, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse001-winter_polish.STRINGS",
+      "dst": "Data\\Strings\\ccvsvsse001-winter_english.STRINGS"
     },
     {
       "id": "ccvsvsse001-winter-pl-dlstrings",
@@ -3274,11 +2624,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse001-winter_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse001-winter_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccvsvsse001-winter, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse001-winter_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse001-winter_english.DLSTRINGS"
     },
     {
       "id": "ccvsvsse001-winter-pl-ilstrings",
@@ -3289,11 +2636,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse001-winter_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse001-winter_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccvsvsse001-winter, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse001-winter_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse001-winter_english.ILSTRINGS"
     },
     {
       "id": "ccvsvsse002-pets-pl-strings",
@@ -3304,11 +2648,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse002-pets_pl.STRINGS",
-      "dst": "Data\\Strings\\ccvsvsse002-pets_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccvsvsse002-pets, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse002-pets_polish.STRINGS",
+      "dst": "Data\\Strings\\ccvsvsse002-pets_english.STRINGS"
     },
     {
       "id": "ccvsvsse002-pets-pl-dlstrings",
@@ -3319,11 +2660,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse002-pets_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse002-pets_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccvsvsse002-pets, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse002-pets_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse002-pets_english.DLSTRINGS"
     },
     {
       "id": "ccvsvsse002-pets-pl-ilstrings",
@@ -3334,11 +2672,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse002-pets_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse002-pets_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccvsvsse002-pets, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse002-pets_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse002-pets_english.ILSTRINGS"
     },
     {
       "id": "ccvsvsse003-necroarts-pl-strings",
@@ -3349,11 +2684,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse003-necroarts_pl.STRINGS",
-      "dst": "Data\\Strings\\ccvsvsse003-necroarts_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccvsvsse003-necroarts, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse003-necroarts_polish.STRINGS",
+      "dst": "Data\\Strings\\ccvsvsse003-necroarts_english.STRINGS"
     },
     {
       "id": "ccvsvsse003-necroarts-pl-dlstrings",
@@ -3364,11 +2696,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse003-necroarts_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse003-necroarts_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccvsvsse003-necroarts, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse003-necroarts_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse003-necroarts_english.DLSTRINGS"
     },
     {
       "id": "ccvsvsse003-necroarts-pl-ilstrings",
@@ -3379,11 +2708,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse003-necroarts_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse003-necroarts_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccvsvsse003-necroarts, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse003-necroarts_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse003-necroarts_english.ILSTRINGS"
     },
     {
       "id": "ccvsvsse004-beafarmer-pl-strings",
@@ -3394,11 +2720,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse004-beafarmer_pl.STRINGS",
-      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_pl.STRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu ccvsvsse004-beafarmer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse004-beafarmer_polish.STRINGS",
+      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_english.STRINGS"
     },
     {
       "id": "ccvsvsse004-beafarmer-pl-dlstrings",
@@ -3409,11 +2732,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse004-beafarmer_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_pl.DLSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu ccvsvsse004-beafarmer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse004-beafarmer_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_english.DLSTRINGS"
     },
     {
       "id": "ccvsvsse004-beafarmer-pl-ilstrings",
@@ -3424,11 +2744,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\ccvsvsse004-beafarmer_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_pl.ILSTRINGS",
-      "category": "creation-club-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu ccvsvsse004-beafarmer, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\ccvsvsse004-beafarmer_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\ccvsvsse004-beafarmer_english.ILSTRINGS"
     },
     {
       "id": "dawnguard-pl-strings",
@@ -3439,11 +2756,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dawnguard_pl.STRINGS",
-      "dst": "Data\\Strings\\Dawnguard_pl.STRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu Dawnguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dawnguard_polish.STRINGS",
+      "dst": "Data\\Strings\\Dawnguard_english.STRINGS"
     },
     {
       "id": "dawnguard-pl-dlstrings",
@@ -3454,11 +2768,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dawnguard_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\Dawnguard_pl.DLSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu Dawnguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dawnguard_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\Dawnguard_english.DLSTRINGS"
     },
     {
       "id": "dawnguard-pl-ilstrings",
@@ -3469,11 +2780,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dawnguard_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\Dawnguard_pl.ILSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu Dawnguard, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dawnguard_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\Dawnguard_english.ILSTRINGS"
     },
     {
       "id": "dragonborn-pl-strings",
@@ -3484,11 +2792,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dragonborn_pl.STRINGS",
-      "dst": "Data\\Strings\\Dragonborn_pl.STRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu Dragonborn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dragonborn_polish.STRINGS",
+      "dst": "Data\\Strings\\Dragonborn_english.STRINGS"
     },
     {
       "id": "dragonborn-pl-dlstrings",
@@ -3499,11 +2804,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dragonborn_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\Dragonborn_pl.DLSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu Dragonborn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dragonborn_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\Dragonborn_english.DLSTRINGS"
     },
     {
       "id": "dragonborn-pl-ilstrings",
@@ -3514,11 +2816,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Dragonborn_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\Dragonborn_pl.ILSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu Dragonborn, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Dragonborn_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\Dragonborn_english.ILSTRINGS"
     },
     {
       "id": "hearthfires-pl-strings",
@@ -3529,11 +2828,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\HearthFires_pl.STRINGS",
-      "dst": "Data\\Strings\\HearthFires_pl.STRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu HearthFires, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\HearthFires_polish.STRINGS",
+      "dst": "Data\\Strings\\HearthFires_english.STRINGS"
     },
     {
       "id": "hearthfires-pl-dlstrings",
@@ -3544,11 +2840,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\HearthFires_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\HearthFires_pl.DLSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu HearthFires, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\HearthFires_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\HearthFires_english.DLSTRINGS"
     },
     {
       "id": "hearthfires-pl-ilstrings",
@@ -3559,11 +2852,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\HearthFires_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\HearthFires_pl.ILSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu HearthFires, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\HearthFires_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\HearthFires_english.ILSTRINGS"
     },
     {
       "id": "skyrim-pl-strings",
@@ -3574,11 +2864,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Skyrim_pl.STRINGS",
-      "dst": "Data\\Strings\\Skyrim_pl.STRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu Skyrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Skyrim_polish.STRINGS",
+      "dst": "Data\\Strings\\Skyrim_english.STRINGS"
     },
     {
       "id": "skyrim-pl-dlstrings",
@@ -3589,11 +2876,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Skyrim_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\Skyrim_pl.DLSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu Skyrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Skyrim_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\Skyrim_english.DLSTRINGS"
     },
     {
       "id": "skyrim-pl-ilstrings",
@@ -3604,11 +2888,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Skyrim_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\Skyrim_pl.ILSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu Skyrim, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Skyrim_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\Skyrim_english.ILSTRINGS"
     },
     {
       "id": "update-pl-strings",
@@ -3619,11 +2900,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Update_pl.STRINGS",
-      "dst": "Data\\Strings\\Update_pl.STRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik STRINGS dla pluginu Update, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Update_polish.STRINGS",
+      "dst": "Data\\Strings\\Update_english.STRINGS"
     },
     {
       "id": "update-pl-dlstrings",
@@ -3634,11 +2912,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Update_pl.DLSTRINGS",
-      "dst": "Data\\Strings\\Update_pl.DLSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik DLSTRINGS dla pluginu Update, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Update_polish.DLSTRINGS",
+      "dst": "Data\\Strings\\Update_english.DLSTRINGS"
     },
     {
       "id": "update-pl-ilstrings",
@@ -3649,11 +2924,8 @@
       "required": false,
       "overwritePolicy": "if-different",
       "backup": true,
-      "src": "Data\\Strings\\Update_pl.ILSTRINGS",
-      "dst": "Data\\Strings\\Update_pl.ILSTRINGS",
-      "category": "base-game-text",
-      "why": "Kopiuje standardowy polski plik ILSTRINGS dla pluginu Update, jesli istnieje w zrodle.",
-      "status": "expected-standard-localization-name"
+      "src": "Data\\Strings\\Update_polish.ILSTRINGS",
+      "dst": "Data\\Strings\\Update_english.ILSTRINGS"
     }
   ]
 }

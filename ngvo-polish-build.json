@@ -1,0 +1,33 @@
+{
+  "paths": {
+    "sourceGameRoot": ".",
+    "buildsRoot": "./tmp"
+  },
+  "copyManifestPath": "ngvo-polish-copy-manifest.json",
+  "coreOutputName": "NGVO - Polish Core",
+  "localizationOutputName": "NGVO - Polish Localization",
+  "modsManifestPath": "ngvo-plus-pl-mods.json",
+  "modsSourcesRoot": "tmp/sources/mods",
+  "overridesRoot": "tmp/sources/overrides",
+  "overridesOrder": 9000,
+  "coreOrder": 5,
+  "excludePatterns": [
+    "fomod/*",
+    "fomod/**",
+    "*.7z",
+    "*.zip",
+    "*.rar",
+    "*.omod",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "*.gif",
+    "*.url",
+    "*.lnk",
+    "docs/*",
+    "docs/**",
+    "screenshots/*",
+    "screenshots/**"
+  ]
+}
