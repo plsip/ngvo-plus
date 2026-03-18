@@ -244,31 +244,31 @@
     },
     {
       "order": 270,
-        "id": "skyrim-paper-map-by-caro-tuts-polish-translation",
-        "name": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
-        "type": "translation-mod",
+      "id": "skyrim-paper-map-by-caro-tuts-polish-translation",
+      "name": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
+      "type": "translation-mod",
       "required": false,
       "priority": "low",
       "ngvoModName": "Skyrim Paper Map by Caro Tuts for FWMF",
       "originalModNexusModId": 62705,
       "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/62705",
-        "nexusModId": 132722,
-        "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/132722",
-        "downloadFile": {
-          "nexusFileId": null,
-          "fileName": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
-          "version": "1.72"
-        },
+      "nexusModId": 132722,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/132722",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Skyrim Paper Map by Caro Tuts for FWMF - PL",
+        "version": "1.72"
+      },
       "activeIndicators": {
         "mod": "Skyrim Paper Map by Caro Tuts for FWMF"
       },
-        "why": "Dla tej mapy jest potwierdzone osobne polskie tlumaczenie na Nexus Mods, obejmujace etykiety miast i teksture mapy.",
+      "why": "Dla tej mapy jest potwierdzone osobne polskie tlumaczenie na Nexus Mods, obejmujace etykiety miast i teksture mapy.",
       "textSurface": [
         "map labels",
         "configuration"
       ],
-        "installRecommendation": "zainstaluj oryginalna mape, a nastepnie nadpisz ja tlumaczeniem Skyrim Paper Map by Caro Tuts for FWMF - PL 1.72",
-        "status": "confirmed-translation"
+      "installRecommendation": "zainstaluj oryginalna mape, a nastepnie nadpisz ja tlumaczeniem Skyrim Paper Map by Caro Tuts for FWMF - PL 1.72",
+      "status": "confirmed-translation"
     },
     {
       "order": 290,
@@ -364,8 +364,8 @@
       "ngvoModName": "Book Covers Skyrim",
       "originalModNexusModId": 901,
       "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/901",
-        "nexusModId": 12958,
-        "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12958",
+      "nexusModId": 12958,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/12958",
       "downloadFile": {
         "nexusFileId": null,
         "fileName": "Book Covers Skyrim",

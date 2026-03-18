@@ -2,14 +2,22 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
+import subprocess
 import sys
+import urllib.error
+import urllib.request
+import zipfile
 from dataclasses import dataclass
 from fnmatch import fnmatch
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+NEXUS_GAME_DOMAIN = "skyrimspecialedition"
+NEXUS_API_BASE = "https://api.nexusmods.com/v1"
 
 
 @dataclass
@@ -50,6 +58,23 @@ def parse_args() -> argparse.Namespace:
         "--allow-missing-required",
         action="store_true",
         help="Continue even if required translation sources are missing.",
+    )
+    parser.add_argument(
+        "--fetch",
+        action="store_true",
+        help="Download and extract mods from ngvo-plus-pl-mods.json to tmp/mods/, then copy to Data/.",
+    )
+    parser.add_argument(
+        "--api-key",
+        default=os.environ.get("NEXUS_API_KEY"),
+        metavar="KEY",
+        help="Nexus Mods API key. Defaults to NEXUS_API_KEY env var. Required when --fetch is used.",
+    )
+    parser.add_argument(
+        "--data-dir",
+        default=str(REPO_ROOT / "Data"),
+        metavar="DIR",
+        help="Destination Data/ directory for copied mod files (default: <repo>/Data).",
     )
     return parser.parse_args()
 
@@ -244,6 +269,140 @@ def copy_tree(
     return copied, replaced
 
 
+def nexus_api_request(path: str, api_key: str) -> list | dict:
+    url = f"{NEXUS_API_BASE}/{path}"
+    req = urllib.request.Request(
+        url,
+        headers={
+            "apikey": api_key,
+            "accept": "application/json",
+            "User-Agent": "ngvo-plus-builder/1.0",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError(f"Nexus API {url} returned HTTP {exc.code}: {exc.reason}") from exc
+
+
+def get_nexus_download_url(nexus_mod_id: int, nexus_file_id: int, api_key: str) -> str:
+    path = f"games/{NEXUS_GAME_DOMAIN}/mods/{nexus_mod_id}/files/{nexus_file_id}/download_link.json"
+    links = nexus_api_request(path, api_key)
+    if not links:
+        raise RuntimeError("Nexus Mods API returned no download links")
+    return links[0]["URI"]  # type: ignore[index]
+
+
+def download_file(url: str, dest_path: Path) -> None:
+    req = urllib.request.Request(url, headers={"User-Agent": "ngvo-plus-builder/1.0"})
+    with urllib.request.urlopen(req) as response:
+        with dest_path.open("wb") as out_file:
+            shutil.copyfileobj(response, out_file)
+
+
+def extract_archive_safe(archive_path: Path, extract_dir: Path) -> None:
+    """Extract archive to extract_dir; guards against zip path traversal."""
+    extract_dir.mkdir(parents=True, exist_ok=True)
+    suffix = archive_path.suffix.lower()
+    resolved_extract = extract_dir.resolve()
+
+    if suffix == ".zip":
+        with zipfile.ZipFile(archive_path, "r") as zf:
+            for member in zf.namelist():
+                member_resolved = (extract_dir / member).resolve()
+                if not str(member_resolved).startswith(str(resolved_extract)):
+                    raise RuntimeError(f"Zip path traversal blocked: {member}")
+                zf.extract(member, extract_dir)
+    elif suffix == ".7z":
+        result = subprocess.run(
+            ["7z", "x", str(archive_path), f"-o{extract_dir}", "-y"],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            raise RuntimeError(f"7z extraction failed: {result.stderr.strip()}")
+    else:
+        shutil.unpack_archive(str(archive_path), str(extract_dir))
+
+
+def fetch_and_extract_mods(mods_manifest: dict, mods_dir: Path, api_key: str) -> list[dict]:
+    """Download and extract each entry from the manifest that has a nexusFileId."""
+    mods_dir.mkdir(parents=True, exist_ok=True)
+    results: list[dict] = []
+
+    for entry in mods_manifest.get("entries", []):
+        entry_id = entry["id"]
+        download_info = entry.get("downloadFile", {})
+        nexus_file_id = download_info.get("nexusFileId")
+        nexus_mod_id = entry.get("nexusModId")
+
+        if not nexus_file_id:
+            print(f"  [SKIP]   {entry_id}: nexusFileId is null — download manually")
+            results.append({"id": entry_id, "status": "skipped", "reason": "no-nexus-file-id"})
+            continue
+
+        extract_dir = mods_dir / entry_id
+        if extract_dir.exists() and any(extract_dir.iterdir()):
+            print(f"  [CACHED] {entry_id}")
+            results.append({"id": entry_id, "status": "cached", "path": str(extract_dir)})
+            continue
+
+        try:
+            print(f"  [FETCH]  {entry_id}: requesting download link ...")
+            download_url = get_nexus_download_url(nexus_mod_id, nexus_file_id, api_key)
+
+            url_filename = download_url.split("?")[0].rsplit("/", 1)[-1] or f"{entry_id}.zip"
+            archive_path = mods_dir / url_filename
+
+            print(f"  [DL]     {url_filename}")
+            download_file(download_url, archive_path)
+
+            print(f"  [UNPACK] → {extract_dir}")
+            extract_archive_safe(archive_path, extract_dir)
+
+            results.append({"id": entry_id, "status": "downloaded", "archive": str(archive_path), "path": str(extract_dir)})
+        except Exception as exc:
+            print(f"  [ERROR]  {entry_id}: {exc}", file=sys.stderr)
+            results.append({"id": entry_id, "status": "error", "error": str(exc)})
+
+    return results
+
+
+def copy_mods_to_data(
+    mods_manifest: dict,
+    mods_dir: Path,
+    data_dir: Path,
+    exclude_patterns: list[str],
+) -> list[dict]:
+    """Copy extracted mod directories into data_dir, following manifest order."""
+    ordered_ids = [
+        e["id"]
+        for e in sorted(mods_manifest.get("entries", []), key=lambda e: e.get("order", 0))
+    ]
+    overwrite_log: dict[str, list[str]] = {}
+    results: list[dict] = []
+
+    for entry_id in ordered_ids:
+        extract_dir = mods_dir / entry_id
+        if not extract_dir.is_dir():
+            continue
+        source = SourceSpec(
+            id=entry_id,
+            label=entry_id,
+            path=extract_dir,
+            required=False,
+            order=0,
+            source_type="downloaded-mod",
+        )
+        copied, replaced = copy_tree(source, data_dir, exclude_patterns, overwrite_log)
+        results.append({"id": entry_id, "copiedFiles": copied, "replacedFiles": replaced})
+        if copied:
+            print(f"  [DATA]   {entry_id}: {copied} files copied ({replaced} replaced)")
+
+    return results
+
+
 def build_report_path(output_dir: Path) -> Path:
     return output_dir.parent / "build-report.json"
 
@@ -256,6 +415,41 @@ def main() -> int:
     output_dir = get_build_root(config, config_dir)
     exclude_patterns = config.get("excludePatterns", [])
 
+    # ── Fetch phase ──────────────────────────────────────────────────────────
+    if args.fetch:
+        api_key: str = args.api_key or ""
+        if not api_key:
+            print("ERROR: --fetch requires a Nexus Mods API key (--api-key KEY or NEXUS_API_KEY env var).", file=sys.stderr)
+            return 1
+
+        mods_dir = REPO_ROOT / "tmp" / "mods"
+        data_dir = Path(args.data_dir).resolve()
+
+        print(f"Downloading mods → {mods_dir}")
+        fetch_results = fetch_and_extract_mods(mods_manifest, mods_dir, api_key)
+        downloaded = sum(1 for r in fetch_results if r["status"] == "downloaded")
+        cached = sum(1 for r in fetch_results if r["status"] == "cached")
+        skipped = sum(1 for r in fetch_results if r["status"] == "skipped")
+        errors = sum(1 for r in fetch_results if r["status"] == "error")
+        print(f"Fetch complete: {downloaded} downloaded, {cached} cached, {skipped} skipped (no fileId), {errors} errors")
+
+        print(f"\nCopying mod files → {data_dir}")
+        copy_results = copy_mods_to_data(mods_manifest, mods_dir, data_dir, exclude_patterns)
+        total_data_files = sum(r["copiedFiles"] for r in copy_results)
+        print(f"Data copy complete: {total_data_files} files copied across {len(copy_results)} mods")
+
+        fetch_report_path = REPO_ROOT / "tmp" / "fetch-report.json"
+        with fetch_report_path.open("w", encoding="utf-8") as handle:
+            json.dump({"fetch": fetch_results, "dataCopy": copy_results}, handle, indent=2, ensure_ascii=False)
+            handle.write("\n")
+        print(f"Fetch report written to: {fetch_report_path}")
+
+        if errors:
+            print(f"\nWARNING: {errors} mod(s) failed to download — check fetch-report.json for details.", file=sys.stderr)
+
+        return 0
+
+    # ── Build phase ───────────────────────────────────────────────────────────
     if args.clean and output_dir.exists():
         shutil.rmtree(output_dir)
 
