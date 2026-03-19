@@ -42,6 +42,7 @@
         "/^cd /c/Workspace/github\\.com/ngvo-plus && python tools/build_ngvo_polish_localization\\.py --unpack-local$/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        "set": true
     }
 }

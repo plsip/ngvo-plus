@@ -492,6 +492,123 @@
       ],
       "installRecommendation": "zainstaluj wersje zgodna z NGVO, a nastepnie doinstaluj osobny mod tlumaczenia z Nexus Mods: The Elder Scrolls Legends - Loading Screens - Polish Translation",
       "status": "confirmed-translation"
+    },
+    {
+      "order": 80,
+      "id": "optional-quick-start-se-polish-translation",
+      "name": "Optional Quick Start - SE - Polish Translation",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "medium",
+      "ngvoModName": "Optional Quick Start - SE",
+      "originalModNexusModId": 63953,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/63953",
+      "nexusModId": 66104,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/66104",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Optional Quick Start - SE - Polish Translation",
+        "version": "1.2.2",
+        "localFile": "mods/Quick Start - SE - Polish Translation-66104-1-2-2-1772146973.7z"
+      },
+      "activeIndicators": {
+        "mod": "Optional Quick Start - SE"
+      },
+      "why": "Mod pozwala pominac wstep do gry i zaczac od razu po wyjsciu z jaskini Grod Helgen. Spolszczenie obejmuje teksty zwiazane z tym procesem, w tym opisy ekwipunku startowego i komunikaty w oknie nowej gry.",
+      "textSurface": [
+        "new game prompts",
+        "starting equipment descriptions",
+        "dialogue"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym Optional Quick Start - SE, aby nadpisac jego teksty",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 40,
+      "id": "true-directional-movement-polish-translation",
+      "name": "True Directional Movement - Modernized Third Person Gameplay - Polish",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "medium",
+      "ngvoModName": "True Directional Movement - Modernized Third Person Gameplay",
+      "originalModNexusModId": 51614,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/51614",
+      "nexusModId": 168300,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/168300",
+      "downloadFile": {
+        "nexusFileId": 703226,
+        "fileName": "True Directional Movement - Polish",
+        "version": "2.2.6",
+        "localFile": "mods/True Directional Movement - Polish-168300-2-2-6-1767013946.zip"
+      },
+      "activeIndicators": {
+        "mod": "True Directional Movement - Modernized Third Person Gameplay"
+      },
+      "why": "True Directional Movement wprowadza rozbudowane MCM z opcjami trybu ruchu, celowania i behawioralnych zachowan NPC. Spolszczenie pokrywa teksty konfiguracji widoczne przy kazdym dostosowaniu moda.",
+      "textSurface": [
+        "MCM",
+        "configuration"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym True Directional Movement, aby nadpisac teksty MCM; upewnij sie ze wersja spolszczenia 2.2.6 odpowiada wersji bazowego moda w NGVO",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 45,
+      "id": "better-third-person-selection-polish-translation",
+      "name": "Better Third Person Selection - Polish Translation",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Better Third Person Selection - BTPS",
+      "originalModNexusModId": 64339,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/64339",
+      "nexusModId": 77655,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/77655",
+      "downloadFile": {
+        "nexusFileId": 636475,
+        "fileName": "Better Third Person Selection PL",
+        "version": "0.8.9",
+        "localFile": "mods/Better Third Person Selection PL-77655-0-8-9-1749548854.7z"
+      },
+      "activeIndicators": {
+        "mod": "Better Third Person Selection - BTPS"
+      },
+      "why": "BTPS dodaje MCM z filtrami selekcji i opcjami celowania w trybie TPP. Mod zawiera etykiety i opisy opcji widoczne przy konfiguracji; spolszczenie usuwa angielska warstwe MCM.",
+      "textSurface": [
+        "MCM",
+        "selection filters"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym Better Third Person Selection - BTPS, aby nadpisac teksty MCM; upewnij sie ze wersja spolszczenia 0.8.9 odpowiada wersji moda w NGVO",
+      "status": "confirmed-translation"
+    },
+    {
+      "order": 430,
+      "id": "fluffy-pelts-polish-translation",
+      "name": "Fluffy Pelts spolszczenie",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "low",
+      "ngvoModName": "Fluffy Pelts",
+      "originalModNexusModId": 103502,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/103502",
+      "nexusModId": 168365,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/168365",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Fluffy Pelts PL",
+        "version": "1.0",
+        "localFile": "mods/Fluffy Pelts PL-168365-1-0-1767081776.zip"
+      },
+      "activeIndicators": {
+        "mod": "Fluffy Pelts"
+      },
+      "why": "Mod podmienia siatki i tekstury skór zwierzecych oraz ich nazwy. Spolszczenie (1 KB) pokrywa nazwy przedmiotow widoczne w ekwipunku i przy zbieraniu.",
+      "textSurface": [
+        "item names",
+        "inventory"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym Fluffy Pelts, aby nadpisac nazwy skór; spolszczenie nie ma Mod Manager Download — pobierz recznie",
+      "status": "confirmed-translation"
     }
   ]
 }
