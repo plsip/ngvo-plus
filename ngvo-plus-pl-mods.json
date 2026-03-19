@@ -609,6 +609,36 @@
       ],
       "installRecommendation": "zainstaluj po oryginalnym Fluffy Pelts, aby nadpisac nazwy skór; spolszczenie nie ma Mod Manager Download — pobierz recznie",
       "status": "confirmed-translation"
+    },
+    {
+      "order": 440,
+      "id": "ordinator-perks-of-skyrim-polish-translation",
+      "name": "Ordinator - Perks of Skyrim - Polish",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "high",
+      "ngvoModName": "Ordinator - Perks of Skyrim",
+      "originalModNexusModId": 1137,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/1137",
+      "nexusModId": 168379,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/168379",
+      "downloadFile": {
+        "nexusFileId": null,
+        "fileName": "Ordinator 9.35.0 - Polish",
+        "version": "9.35.0",
+        "localFile": "mods/Ordinator 9.35.0 - Polish-168379-9-35-0-1772126030.zip"
+      },
+      "activeIndicators": {
+        "mod": "Ordinator - Perks of Skyrim"
+      },
+      "why": "Ordinator przebudowuje praktycznie cale drzewka perkow i dodaje setki nowych nazw oraz opisow zdolnosci. Bez spolszczenia gracz regularnie trafia na duza warstwe angielskiego tekstu podczas rozwoju postaci.",
+      "textSurface": [
+        "perk trees",
+        "perk descriptions",
+        "skill progression"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym Ordinator - Perks of Skyrim i upewnij sie, ze wersja spolszczenia 9.35.0 odpowiada wersji moda bazowego w NGVO",
+      "status": "confirmed-translation"
     }
   ]
 }
