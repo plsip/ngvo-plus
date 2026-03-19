@@ -424,6 +424,8 @@ def _apply_rename_map(target_dir: Path, rename_map: dict[str, str], entry_id: st
         new_path = target_dir / new_name
         if old_path.exists():
             new_path.parent.mkdir(parents=True, exist_ok=True)
+            if new_path.exists():
+                new_path.unlink()
             old_path.rename(new_path)
             print(f"  [RENAME] {old_name} → {new_name}")
         else:
@@ -535,6 +537,8 @@ def rename_polish_to_english(output_dir: Path) -> list[dict]:
         if path.is_file() and "_polish" in path.name.lower():
             new_name = path.name.replace("_polish", "_english").replace("_Polish", "_english")
             new_path = path.with_name(new_name)
+            if new_path.exists():
+                new_path.unlink()
             path.rename(new_path)
             renamed.append({"from": path.name, "to": new_name})
             print(f"  [RENAME] {path.name} → {new_name}")
@@ -575,13 +579,29 @@ def copy_mods_to_data(
     return results
 
 
-def pack_mod_for_mo2(mod_dir: Path) -> Path:
+def get_short_commit() -> str:
+    """Return the short hash of the current HEAD commit, or empty string on failure."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=REPO_ROOT,
+        )
+        return result.stdout.strip()
+    except Exception:
+        return ""
+
+
+def pack_mod_for_mo2(mod_dir: Path, commit: str = "") -> Path:
     """Create a MO2-installable zip archive from mod_dir contents.
 
     The archive has a flat layout (files at root, no top-level wrapper folder)
     which MO2 can install directly.
     """
-    archive_path = mod_dir.parent / f"{mod_dir.name}.zip"
+    suffix = f"-{commit}" if commit else ""
+    archive_path = mod_dir.parent / f"{mod_dir.name}{suffix}.zip"
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for file_path in sorted(mod_dir.rglob("*")):
             if file_path.is_file():
@@ -779,8 +799,12 @@ def main() -> int:
     print(f"Required sources missing: {len(missing_required)}")
     print(f"Optional sources missing: {len(missing_optional)}")
 
+    print(f"\nPrzemianowywanie _polish → _english ...")
+    renamed = rename_polish_to_english(output_dir)
+    print(f"Przemianowano: {len(renamed)} plików")
+
     print(f"\nPakowanie moda dla MO2 ...")
-    archive_path = pack_mod_for_mo2(output_dir)
+    archive_path = pack_mod_for_mo2(output_dir, commit=get_short_commit())
     archive_size_mb = archive_path.stat().st_size / 1_048_576
     print(f"Archiwum: {archive_path} ({archive_size_mb:.2f} MB)")
     return 0
