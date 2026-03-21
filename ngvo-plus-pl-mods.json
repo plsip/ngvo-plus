@@ -553,6 +553,37 @@
       "status": "confirmed-translation"
     },
     {
+      "order": 42,
+      "id": "quickloot-ie-a-quickloot-ee-fork-pl",
+      "name": "QuickLoot IE - A QuickLoot EE Fork-PL",
+      "type": "translation-mod",
+      "required": false,
+      "priority": "high",
+      "ngvoModName": "QuickLoot IE - A QuickLoot EE Fork",
+      "originalModNexusModId": 120075,
+      "originalModNexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/120075",
+      "nexusModId": 127319,
+      "nexusUrl": "https://www.nexusmods.com/skyrimspecialedition/mods/127319",
+      "downloadFile": {
+        "nexusFileId": 636781,
+        "fileName": "QuickLoot IE - A QuickLootLoot EE Fork-PL",
+        "version": "3.4.1",
+        "localFile": "mods/QuickLoot IE - A QuickLootLoot EE Fork-PL-127319-3-4-1-1749641044.7z"
+      },
+      "activeIndicators": {
+        "mod": "QuickLoot IE - A QuickLoot EE Fork"
+      },
+      "why": "QuickLoot IE podmienia sposob przegladania pojemnikow i dodaje wlasne menu lupow oraz rozbudowane MCM. To warstwa UI widoczna bardzo czesto podczas eksploracji, wiec brak spolszczenia szybko wybija sie w normalnej grze.",
+      "textSurface": [
+        "loot menu",
+        "container UI",
+        "MCM",
+        "interaction prompts"
+      ],
+      "installRecommendation": "zainstaluj po oryginalnym QuickLoot IE - A QuickLoot EE Fork, aby nadpisac teksty interfejsu i MCM; upewnij sie, ze wersja spolszczenia 3.4.1 odpowiada wersji moda bazowego w NGVO",
+      "status": "confirmed-translation"
+    },
+    {
       "order": 45,
       "id": "better-third-person-selection-polish-translation",
       "name": "Better Third Person Selection - Polish Translation",
